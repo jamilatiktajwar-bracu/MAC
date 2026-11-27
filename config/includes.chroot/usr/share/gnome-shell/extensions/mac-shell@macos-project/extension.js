@@ -53,6 +53,10 @@ export default class MacShellExtension extends Extension {
     this._addAppItem('Open Settings', 'org.gnome.Settings.desktop');
     this._addAppItem('Open Terminal', 'org.gnome.Terminal.desktop');
     this._button.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+    const dockMagnification = new PopupMenu.PopupSwitchMenuItem('Dock magnification', this._settings.get_boolean('dock-magnification'));
+    dockMagnification.connect('toggled', (_item, enabled) => this._settings.set_boolean('dock-magnification', enabled));
+    this._button.menu.addMenuItem(dockMagnification);
+    this._button.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
     const about = new PopupMenu.PopupMenuItem('About MAC OS');
     about.connect('activate', () => Main.notify('MAC OS', 'A Linux-based desktop prototype with its own MAC shell.'));
     this._button.menu.addMenuItem(about);
@@ -84,6 +88,7 @@ export default class MacShellExtension extends Extension {
     button._macDesktopId = desktopId;
     button._macIndicator = indicator;
     button.connect('clicked', () => this._launch(desktopId));
+    this._wireDockMagnification(button);
     this._dock.add_child(button);
   }
 
@@ -92,7 +97,23 @@ export default class MacShellExtension extends Extension {
     const button = new St.Button({ style_class: 'mac-dock-item mac-dock-launcher', can_focus: true, child: icon });
     button.set_tooltip_text('Applications');
     button.connect('clicked', () => this._toggleLauncher());
+    this._wireDockMagnification(button);
     this._dock.add_child(button);
+  }
+
+  _wireDockMagnification(button) {
+    button.connect('enter-event', () => {
+      if (this._settings?.get_boolean('dock-magnification')) {
+        button.set_scale(1.18, 1.18);
+        button.set_translation(0, -7, 0);
+      }
+      return Clutter.EVENT_PROPAGATE;
+    });
+    button.connect('leave-event', () => {
+      button.set_scale(1, 1);
+      button.set_translation(0, 0, 0);
+      return Clutter.EVENT_PROPAGATE;
+    });
   }
 
   _positionDock() {
