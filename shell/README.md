@@ -5,7 +5,7 @@ Experimental GNOME Shell extension. Current features:
 - `⌘ MAC` top-panel menu: Overview, launcher, Files, Web, Settings, Terminal, About
 - Centered icon dock: Files, Web browser, Text Editor, Settings, Terminal, and app launcher
 - Hover/focus feedback and running-app dots
-- Searchable installed-app launcher with icons and Up/Down/Enter/Escape controls
+- Searchable installed-app launcher with icons and Up/Down/Enter/Escape controls\n- Configurable keyboard shortcut (default Super+K) to open the launcher
 - Dock repositioning when the primary monitor layout changes
 
 The shell is still an additive extension over GNOME; it does not replace the compositor or window manager. The app favorites are hard-coded, dock auto-hide and drag-to-reorder are not implemented, and compatibility has not yet been VM-tested.
@@ -35,7 +35,7 @@ Log out/in if needed. On Wayland, don't restart Shell with Alt+F2, R.
 - MAC menu and About item appear on the top panel.
 - Dock appears centered at the primary monitor's bottom edge.
 - Files, Web, Text Editor, Settings and Terminal launch if installed.
-- App-grid button opens launcher; typing filters; arrows change selection; Enter launches; Escape closes.
+- App-grid button and Super+K open launcher; typing filters; arrows change selection; Enter launches; Escape closes.
 - Running favorites have a dot indicator.
 - Dock remains correctly positioned after display/monitor changes.
 - Disabling the extension removes its panel item, dock, and launcher.
