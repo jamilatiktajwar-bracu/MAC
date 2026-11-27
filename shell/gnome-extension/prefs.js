@@ -49,7 +49,7 @@ export default class MacShellPreferences extends ExtensionPreferences {
 
     const favoritesGroup = new Adw.PreferencesGroup({
       title: 'Favorite applications',
-      description: 'Add, remove, and drag rows to change the Dock order.',
+      description: 'Add, remove, and move applications to change the Dock order.',
     });
 
     const availableApps = Gio.AppInfo.get_all()
@@ -84,7 +84,7 @@ export default class MacShellPreferences extends ExtensionPreferences {
       if (!desktopId || favoritesList.get_children().some(row => row._macDesktopId === desktopId))
         return;
       const app = Gio.DesktopAppInfo.new(desktopId);
-      const row = new Gtk.ListBoxRow({ reorderable: true });
+      const row = new Gtk.ListBoxRow();
       row._macDesktopId = desktopId;
       const content = new Gtk.Box({
         orientation: Gtk.Orientation.HORIZONTAL,
@@ -100,6 +100,32 @@ export default class MacShellPreferences extends ExtensionPreferences {
         hexpand: true,
       });
       label.set_tooltip_text(desktopId);
+      const moveUpButton = new Gtk.Button({
+        icon_name: 'go-up-symbolic',
+        tooltip_text: 'Move application up',
+        valign: Gtk.Align.CENTER,
+      });
+      moveUpButton.add_css_class('flat');
+      moveUpButton.connect('clicked', () => {
+        const index = row.get_index();
+        if (index > 0) {
+          favoritesList.remove(row);
+          favoritesList.insert(row, index - 1);
+        }
+      });
+      const moveDownButton = new Gtk.Button({
+        icon_name: 'go-down-symbolic',
+        tooltip_text: 'Move application down',
+        valign: Gtk.Align.CENTER,
+      });
+      moveDownButton.add_css_class('flat');
+      moveDownButton.connect('clicked', () => {
+        const index = row.get_index();
+        if (index >= 0 && index < favoritesList.get_children().length - 1) {
+          favoritesList.remove(row);
+          favoritesList.insert(row, index + 1);
+        }
+      });
       const removeButton = new Gtk.Button({
         icon_name: 'list-remove-symbolic',
         tooltip_text: 'Remove from Dock favorites',
@@ -108,6 +134,8 @@ export default class MacShellPreferences extends ExtensionPreferences {
       removeButton.add_css_class('flat');
       removeButton.connect('clicked', () => favoritesList.remove(row));
       content.append(label);
+      content.append(moveUpButton);
+      content.append(moveDownButton);
       content.append(removeButton);
       row.set_child(content);
       favoritesList.append(row);
@@ -122,7 +150,7 @@ export default class MacShellPreferences extends ExtensionPreferences {
 
     addButton.connect('clicked', () => {
       const selected = appPicker.selected;
-      if (selected !== Gtk.INVALID_LIST_POSITION && availableApps[selected])
+      if (availableApps[selected])
         addFavoriteRow(availableApps[selected].id);
     });
 
