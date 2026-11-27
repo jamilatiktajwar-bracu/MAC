@@ -6,7 +6,7 @@ A macOS-inspired desktop project with original branding and implementation, init
 
 ## Current status
 
-Browser prototype v0.7-dev, experimental GNOME Shell v0.7-dev features, and a Debian live-ISO build pipeline. The image build and shell must still pass CI and VM testing before we can claim a working bootable release.
+Browser prototype v0.7-dev, experimental GNOME Shell v0.8-dev features, and a Debian live-ISO build pipeline. The image build and shell must still pass CI and VM testing before we can claim a working bootable release.
 
 ## Browser prototype
 
@@ -20,11 +20,12 @@ Then visit http://localhost:8000. The web demo includes boot/lock flow, menu bar
 
 ## Native experiment
 
-The initial native target is Debian 13 (Trixie) + GNOME/Wayland. MAC is currently an extension layered on GNOME—not a new kernel, compositor, or standalone OS. The native launcher adapts to smaller displays and monitor changes, with keyboard focus indicators.
+The initial native target is Debian 13 (Trixie) + GNOME/Wayland. MAC is currently an extension layered on GNOME—not a new kernel, compositor, or standalone OS. The native launcher adapts to smaller displays and monitor changes, with keyboard focus indicators. Native MAC Desktop Settings now exposes dock auto-hide, magnification, and editable favorites; the panel menu also provides Home and Downloads shortcuts.
 
 - [Visual design system](docs/DESIGN-SYSTEM.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Shell features and testing](shell/README.md)
+- [QEMU BIOS/UEFI launcher](scripts/run-vm.sh)
 - [ISO build guide](docs/BOOTABLE-ISO.md)
 - [VM test checklist](docs/SHELL-VM-TEST.md)
 - [Roadmap](docs/ROADMAP.md)
