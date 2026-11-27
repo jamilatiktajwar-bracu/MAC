@@ -29,13 +29,16 @@
 - [x] Original wallpaper and dark appearance defaults
 - [ ] Validate menu, dock, launcher, and GNOME integration in VM
 - [ ] Window management polish and desktop behavior
-- [ ] Theme, icon, animation, and accessibility pass
+- [x] Native launcher adapts to smaller displays and monitor changes
+- [x] Native dock and launcher keyboard-focus styling
+- [ ] Theme, icon, animation, and full accessibility pass
 - [x] Browser prototype window shortcuts (close, minimize, maximize)\n- [x] Persistent Dock magnification preference in browser prototype\n- [ ] Native shell keyboard shortcuts and focus navigation
 - [x] Browser prototype Dock magnification control\n- [ ] Native Dock auto-hide, favorite customization, and drag-reorder
 
 ## Phase 3 — System applications
 - [x] Include Files, Web, Terminal, Settings, and Text Editor
 - [ ] Custom Settings experience
+- [ ] Native dock preferences and auto-hide controls
 - [ ] Software center/package-manager UX
 - [ ] System monitor
 - [ ] First-party Notes app (native, not web demo)
