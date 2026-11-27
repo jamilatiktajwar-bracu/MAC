@@ -6,7 +6,7 @@ A personal, macOS-inspired operating system project. This project aims to build 
 
 ## Current status
 
-**Desktop prototype v0.1** is available as a browser-based mockup. It is not a bootable operating system yet.
+**Desktop prototype v0.2** is available as a browser-based mockup. It is not a bootable operating system yet.
 
 ## Preview the desktop prototype
 
@@ -19,12 +19,12 @@ python3 -m http.server 8000
 Then visit http://localhost:8000.
 
 ### Prototype features
-- macOS-inspired menu bar and clock
+- Animated boot screen and interactive lock screen\n- macOS-inspired menu bar and live clock\n- Control Center mockup (Wi-Fi, Focus, Bluetooth, appearance, brightness, volume)\n- Notification panel with clear action\n- Desktop clock widget
 - Desktop wallpaper concept and desktop shortcuts
 - Dock with hover effect and application launcher/search
 - Draggable application windows, minimize, maximize, close
-- Settings demo with toggles
-- Files, Browser, Terminal, Notes and About app mockups
+- Settings demo with toggles and accent swatches
+- Files, Browser, Terminal command simulation (`help`, `date`, `about`, `ls`, `whoami`, `clear`), Notes and About app mockups
 
 ## Direction
 
