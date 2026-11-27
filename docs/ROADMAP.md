@@ -12,6 +12,7 @@
 - [x] Add build checksum and source manifest
 - [x] Add source consistency checks to CI
 - [x] Add MAC dconf defaults, wallpaper, and boot-theme assets
+- [x] Add generated build hook for dconf compilation and Plymouth initramfs update
 - [ ] Complete successful CI ISO build
 - [ ] Verify ISO checksum and boot catalog
 - [ ] Boot in QEMU/VirtualBox (BIOS and UEFI)
