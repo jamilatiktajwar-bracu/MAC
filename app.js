@@ -13,9 +13,9 @@ const appDefs={
  about:{title:'About MAC OS',body:`<div class="app-content" style="text-align:center;padding-top:30px"><div style="font-size:56px">⌘</div><h2>MAC OS</h2><p>Desktop prototype 0.3</p><p style="color:#687187">A personal Linux-based operating system concept, with its own design language.</p></div>`}
 };
 function showToast(text){toastEl.textContent=text;toastEl.classList.add('show');setTimeout(()=>toastEl.classList.remove('show'),1900)}
-function openApp(id){const def=appDefs[id];if(!def)return;closeLauncher();let existing=document.querySelector('.app-window[data-app="'+id+'"]');if(existing){existing.style.zIndex=++z;existing.style.display='block';return;}
+function setDockRunning(id,running){document.querySelectorAll('.dock-app[data-open="'+id+'"]').forEach(btn=>btn.classList.toggle('running',running))}function openApp(id){const def=appDefs[id];if(!def)return;closeLauncher();let existing=document.querySelector('.app-window[data-app="'+id+'"]');if(existing){existing.style.zIndex=++z;existing.style.display='block';setDockRunning(id,true);return;}
 const win=document.createElement('article');win.className='app-window';win.dataset.app=id;win.style.zIndex=++z;win.innerHTML=`<div class="window-titlebar"><div class="window-controls"><button class="win-control close" aria-label="Close"></button><button class="win-control minimize" aria-label="Minimize"></button><button class="win-control maximize" aria-label="Maximize"></button></div><div class="window-title">${def.title}</div></div><div class="window-content">${def.body}</div>`;layer.appendChild(win);
-win.querySelector('.close').onclick=()=>win.remove();
+win.querySelector('.close').onclick=()=>{win.remove();setDockRunning(id,false)};setDockRunning(id,true);
 win.querySelector('.minimize').onclick=()=>{win.style.display='none';showToast(def.title+' minimized')};
 win.querySelector('.maximize').onclick=()=>{win.classList.toggle('maximized');if(win.classList.contains('maximized')){win.style.cssText+=';left:0;top:0;transform:none;width:100%;height:100%'}else{win.style.left='50%';win.style.top='50%';win.style.transform='translate(-50%,-50%)';win.style.width='min(620px,calc(100vw - 30px))';win.style.height='min(440px,calc(100dvh - 140px))'}};
 win.addEventListener('mousedown',()=>win.style.zIndex=++z);
