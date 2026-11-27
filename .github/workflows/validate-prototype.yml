@@ -7,6 +7,9 @@ on:
       - "index.html"
       - "styles.css"
       - "shell/gnome-extension/**"
+      - "scripts/run-vm.sh"
+      - "config/includes.chroot/usr/share/applications/mac-desktop-settings.desktop"
+      - "config/includes.chroot/usr/share/icons/hicolor/scalable/apps/mac-desktop-settings.svg"
       - "config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/**"
       - ".github/workflows/validate-prototype.yml"
   pull_request:
@@ -32,6 +35,8 @@ jobs:
           node --input-type=module --check < shell/gnome-extension/extension.js
           node --input-type=module --check < shell/gnome-extension/prefs.js
           python3 -m json.tool shell/gnome-extension/metadata.json >/dev/null
+          bash -n scripts/run-vm.sh
+          python3 -c 'import configparser; p=configparser.ConfigParser(interpolation=None); p.read("config/includes.chroot/usr/share/applications/mac-desktop-settings.desktop"); assert p.get("Desktop Entry", "Exec").startswith("gnome-extensions prefs ")'
           python3 -c 'import xml.etree.ElementTree as ET; ET.parse("shell/gnome-extension/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml")'
           cmp shell/gnome-extension/extension.js config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/extension.js
           cmp shell/gnome-extension/prefs.js config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/prefs.js
