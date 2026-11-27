@@ -15,3 +15,15 @@
 .mac-launcher-row:hover, .mac-launcher-row-selected { background-color: rgba(255,255,255,0.16); }
 .mac-launcher-row-content { spacing: 11px; padding: 2px; }
 .mac-launcher-empty { padding: 14px; color: rgba(255,255,255,0.7); }
+
+/* Responsive launcher and keyboard focus visibility */
+.mac-launcher { max-height: 85vh; }
+.mac-launcher-row:focus,
+.mac-dock-item:focus {
+  outline: 2px solid rgba(145, 177, 255, 0.95);
+  outline-offset: 2px;
+}
+.mac-dock-item:focus .mac-dock-content { background-color: rgba(255,255,255,0.10); }
+@media (prefers-reduced-motion: reduce) {
+  .mac-dock-item, .mac-launcher-row { transition-duration: 0ms; }
+}
