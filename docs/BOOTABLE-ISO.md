@@ -1,6 +1,6 @@
 # Bootable ISO build (experimental)
 
-The build script explicitly points all package stages to Debian mirrors (not the Ubuntu host's default apt mirror). This produces a Debian Stable live image with GNOME, MAC desktop defaults, a custom wallpaper, a minimal Plymouth theme, and the experimental MAC GNOME Shell extension. It is a Linux-based prototype, not a new kernel or independent distribution.
+The build script explicitly selects Debian 13 (Trixie), uses Debian mirrors (not the Ubuntu host's default apt mirror), and adds the current `trixie-security` repository separately. This avoids live-build's obsolete `stable/updates` security-suite naming. This produces a Debian 13 (Trixie) live image with GNOME, MAC desktop defaults, a custom wallpaper, a minimal Plymouth theme, and the experimental MAC GNOME Shell extension. It is a Linux-based prototype, not a new kernel or independent distribution.
 
 ## Local build (Debian/Ubuntu)
 
@@ -18,8 +18,9 @@ The **Build MAC OS Live ISO** workflow triggers on relevant source changes and c
 
 ## Included environment
 
-- Debian Stable amd64 with GNOME Shell, session, GDM
-- Files, Epiphany Web, Terminal, Settings, Text Editor\n- GNOME Extension Preferences, System Monitor, Calculator, Disk Utility
+- Debian 13 (Trixie) amd64 with GNOME Shell, session, GDM
+- Files, Epiphany Web, Terminal, Settings, Text Editor
+- GNOME Extension Preferences, System Monitor, Calculator, Disk Utility
 - NetworkManager
 - live-boot / live-config
 - Inter and emoji fonts, Papirus icons, Plymouth
