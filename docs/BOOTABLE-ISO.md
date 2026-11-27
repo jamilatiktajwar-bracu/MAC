@@ -25,7 +25,7 @@ The **Build MAC OS Live ISO** workflow triggers on relevant source changes and c
 - Inter and emoji fonts, Papirus icons, Plymouth
 - MAC GNOME Shell extension, configured to auto-enable through system dconf defaults
 - MAC dark appearance and custom SVG wallpaper defaults
-- Experimental MAC Plymouth theme files (boot splash still requires verification in the built image/initramfs)
+- MAC Plymouth theme selected and initramfs regeneration attempted by a temporary build hook (must verify on boot)
 
 ## First boot in a VM
 
