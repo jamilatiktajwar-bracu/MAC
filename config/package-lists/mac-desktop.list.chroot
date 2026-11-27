@@ -11,6 +11,8 @@ epiphany-browser
 gnome-terminal
 gnome-control-center
 gnome-shell-extension-prefs
+gir1.2-adw-1
+libadwaita-1-0
 gnome-system-monitor
 gnome-calculator
 gnome-disk-utility
