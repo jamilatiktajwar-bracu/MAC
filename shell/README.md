@@ -6,11 +6,15 @@ Experimental GNOME Shell extension. Current features:
 - Centered icon dock: Files, Web browser, Text Editor, Settings, Terminal, and app launcher
 - Hover/focus feedback, running-app dots, and optional native icon magnification
 - MAC panel menu switch to persistently enable/disable dock magnification with GSettings
+- Native libadwaita MAC Desktop Settings for dock auto-hide, magnification, and editable favorite desktop IDs
+- Configurable dock favorites that rebuild immediately when saved
+- Optional dock auto-hide with bottom-edge pointer reveal
+- MAC menu shortcuts to open Home and Downloads in Files
 - Searchable installed-app launcher with icons and Up/Down/Enter/Escape controls
 - Configurable keyboard shortcut (default Super+K) to open the launcher
 - Dock repositioning when the primary monitor layout changes
 
-The shell is still an additive extension over GNOME; it does not replace the compositor or window manager. The app favorites are hard-coded, dock auto-hide and drag-to-reorder are not implemented, and compatibility has not yet been VM-tested.
+The shell is still an additive extension over GNOME; it does not replace the compositor or window manager. Favorites are editable as desktop application IDs in MAC Desktop Settings; graphical drag-to-reorder is not implemented. Auto-hide and preferences are experimental and have not yet been VM-tested.
 
 ## Included in the MAC live ISO
 
@@ -40,7 +44,11 @@ Log out/in if needed. On Wayland, don't restart Shell with Alt+F2, R.
 - App-grid button and Super+K open launcher; typing filters; arrows change selection; Enter launches; Escape closes.
 - Running favorites have a dot indicator.
 - Dock remains correctly positioned after display/monitor changes.
-- Dock magnification switch persists through the extension's GSettings schema.
+- Dock magnification and auto-hide settings persist through the extension's GSettings schema.
+- MAC Desktop Settings opens from the panel menu or application grid.
+- Favorite desktop IDs can be edited, saved, and restored to defaults.
+- Saving favorites rebuilds the Dock without restarting GNOME Shell.
+- MAC panel menu opens the Home and Downloads folders in Files.
 - Disabling the extension removes its panel item, dock, and launcher.
 
 ## Disable / remove
