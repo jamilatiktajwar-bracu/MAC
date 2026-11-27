@@ -50,6 +50,7 @@ lb config \
   --architectures amd64 \
   --archive-areas "main contrib non-free non-free-firmware" \
   --security false \
+  --initsystem systemd \
   --binary-images iso-hybrid \
   --bootloader grub2 \
   --debian-installer false \
@@ -80,7 +81,7 @@ MANIFEST="$ROOT/MAC-OS-build-manifest.txt"
   echo "Product: MAC OS Live Prototype"
   echo "Build date (UTC): $(date -u +%Y-%m-%dT%H:%M:%SZ)"
   echo "Architecture: amd64"
-  echo "Base: Debian Stable"
+  echo "Base: Debian 13 (Trixie)"
   if command -v git >/dev/null 2>&1 && git rev-parse --short HEAD >/dev/null 2>&1; then
     echo "Source commit: $(git rev-parse HEAD)"
     echo "Source revision: $(git rev-parse --short HEAD)"
