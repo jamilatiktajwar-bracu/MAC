@@ -1,0 +1,14 @@
+[org/gnome/desktop/background]
+picture-uri='file:///usr/share/backgrounds/mac/mac-wallpaper.svg'
+picture-uri-dark='file:///usr/share/backgrounds/mac/mac-wallpaper.svg'
+picture-options='zoom'
+primary-color='#101c39'
+
+[org/gnome/desktop/interface]
+color-scheme='prefer-dark'
+gtk-theme='Adwaita-dark'
+icon-theme='Papirus'
+font-name='Inter 10'
+
+[org/gnome/shell]
+enabled-extensions=['mac-shell@macos-project']
