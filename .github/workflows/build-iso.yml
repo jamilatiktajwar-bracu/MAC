@@ -33,7 +33,8 @@ jobs:
           cmp shell/gnome-extension/extension.js config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/extension.js
           cmp shell/gnome-extension/stylesheet.css config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/stylesheet.css
           cmp shell/gnome-extension/metadata.json config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/metadata.json
-          python3 -c 'import xml.etree.ElementTree as ET; ET.parse("config/includes.chroot/usr/share/backgrounds/mac/mac-wallpaper.svg")'
+          cmp shell/gnome-extension/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml
+          python3 -c 'import xml.etree.ElementTree as ET; ET.parse("config/includes.chroot/usr/share/backgrounds/mac/mac-wallpaper.svg"); ET.parse("shell/gnome-extension/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml")'
 
       - name: Install live-build tools
         run: |
