@@ -42,3 +42,12 @@
 
 ## Architecture decision (initial recommendation)
 Use an established Linux kernel and base distribution for the first usable release. Build the custom desktop shell and OS experience on top. A custom kernel can be explored later if there is a clear technical need.
+
+
+## Prototype milestones
+- [x] v0.1 — basic desktop UI
+- [x] v0.2 — boot/lock flow and quick panels
+- [x] v0.3 — launcher search and quick-panel dismissal polish
+- [x] v0.4 — local Notes autosave, persistent dark mode preference, clickable folder demo, simulated terminal commands
+- [ ] v0.5 — prototype shell architecture research and Linux-base selection
+- [ ] v0.6 — reproducible bootable image build and VM testing
