@@ -14,7 +14,7 @@ sudo apt install live-build debootstrap xorriso squashfs-tools grub-pc-bin grub-
 From the repository root:
 
 ```bash
-sudo ./scripts/build-iso.sh
+sudo bash ./scripts/build-iso.sh
 ```
 
 The script produces `MAC-OS-amd64.iso` and a SHA-256 checksum. It needs network access and several GB of disk space. Build output is not guaranteed to be identical byte-for-byte across runs because the Debian Stable package repositories change.
