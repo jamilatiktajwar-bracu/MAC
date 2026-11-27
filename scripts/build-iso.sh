@@ -37,4 +37,22 @@ else
   exit 1
 fi
 sha256sum "$ISO" | tee "$ISO.sha256"
+
+MANIFEST="$ROOT/MAC-OS-build-manifest.txt"
+{
+  echo "Product: MAC OS Live Prototype"
+  echo "Build date (UTC): $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+  echo "Architecture: amd64"
+  echo "Base: Debian Stable"
+  if command -v git >/dev/null 2>&1 && git rev-parse --short HEAD >/dev/null 2>&1; then
+    echo "Source commit: $(git rev-parse HEAD)"
+    echo "Source revision: $(git rev-parse --short HEAD)"
+  else
+    echo "Source commit: unknown (source archive)"
+  fi
+  echo "ISO file: $(basename "$ISO")"
+  echo "ISO size (bytes): $(stat -c %s "$ISO")"
+  echo "SHA-256: $(sha256sum "$ISO" | awk '{print $1}')"
+} | tee "$MANIFEST"
+
 echo "ISO created: $ISO"
