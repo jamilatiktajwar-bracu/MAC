@@ -3,6 +3,7 @@ import Gio from 'gi://Gio';
 import Clutter from 'gi://Clutter';
 import GLib from 'gi://GLib';
 import Shell from 'gi://Shell';
+import Meta from 'gi://Meta';
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
@@ -18,6 +19,8 @@ const FAVORITES = [
 
 export default class MacShellExtension extends Extension {
   enable() {
+    this._settings = this.getSettings();
+    Main.wm.addKeybinding('toggle-launcher', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.NORMAL, () => this._toggleLauncher());
     this._buildPanelMenu();
     this._buildDock();
     this._monitorSignal = Main.layoutManager.connect('monitors-changed', () => this._positionDock());
@@ -219,6 +222,8 @@ export default class MacShellExtension extends Extension {
   }
 
   disable() {
+    Main.wm.removeKeybinding('toggle-launcher');
+    this._settings = null;
     if (this._runningAppsTimer) GLib.source_remove(this._runningAppsTimer);
     this._runningAppsTimer = null;
     if (this._monitorSignal) Main.layoutManager.disconnect(this._monitorSignal);
