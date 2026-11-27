@@ -42,6 +42,7 @@ cleanup_hook() {
 trap cleanup_hook EXIT
 
 lb config \
+  --mode debian \
   --distribution stable \
   --mirror-bootstrap "https://deb.debian.org/debian" \
   --mirror-chroot "https://deb.debian.org/debian" \
