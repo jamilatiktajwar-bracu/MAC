@@ -20,7 +20,7 @@ Then visit http://localhost:8000. The web demo includes boot/lock flow, menu bar
 
 ## Native experiment
 
-The initial native target is Debian 13 (Trixie) + GNOME/Wayland. MAC is currently an extension layered on GNOME—not a new kernel, compositor, or standalone OS. The native launcher adapts to smaller displays and monitor changes, with keyboard focus indicators. Native MAC Desktop Settings now exposes dock auto-hide, magnification, and editable favorites; the panel menu also provides Home and Downloads shortcuts.
+The initial native target is Debian 13 (Trixie) + GNOME/Wayland. MAC is currently an extension layered on GNOME—not a new kernel, compositor, or standalone OS. The native launcher adapts to smaller displays and monitor changes, with keyboard focus indicators. Native MAC Desktop Settings now exposes dock auto-hide, magnification, and editable favorites; the panel menu also provides Home and Downloads shortcuts. The live image explicitly packages the libadwaita runtime required by the preferences UI.
 
 - [Visual design system](docs/DESIGN-SYSTEM.md)
 - [Architecture](docs/ARCHITECTURE.md)
