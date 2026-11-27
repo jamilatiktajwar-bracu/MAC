@@ -21,6 +21,7 @@ export default class MacShellExtension extends Extension {
 
   _buildPanelMenu() {
     this._button = new PanelMenu.Button(0.0, 'MAC Shell');
+    this._button.add_style_class_name('mac-shell-indicator');
     this._button.add_child(new St.Label({
       text: '⌘ MAC',
       y_align: St.Align.CENTER,
