@@ -1,69 +1,17 @@
-.mac-shell-indicator {
-  padding: 0 10px;
-  font-weight: bold;
-}
-.mac-shell-indicator:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-}
-
-.mac-dock {
-  background-color: rgba(30, 30, 36, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 18px;
-  padding: 8px;
-  spacing: 8px;
-}
-
-.mac-dock-item {
-  border-radius: 12px;
-  padding: 8px 12px;
-  color: white;
-}
-.mac-dock-item:hover {
-  background-color: rgba(255, 255, 255, 0.14);
-}
-.mac-dock-content {
-  spacing: 4px;
-  min-width: 40px;
-  align-items: center;
-}
-.mac-dock-indicator {
-  width: 4px;
-  height: 4px;
-  border-radius: 4px;
-  background-color: transparent;
-}
-.mac-dock-indicator-running {
-  background-color: rgba(255, 255, 255, 0.9);
-}
-
-.mac-launcher {
-  background-color: rgba(32, 32, 38, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 18px;
-  padding: 12px;
-  spacing: 8px;
-}
-.mac-launcher-search {
-  background-color: rgba(255, 255, 255, 0.09);
-  border-radius: 10px;
-  padding: 10px;
-  color: white;
-}
-.mac-launcher-row {
-  border-radius: 8px;
-  padding: 8px 10px;
-  color: white;
-}
-.mac-launcher-row:hover,
-.mac-launcher-row-selected {
-  background-color: rgba(255, 255, 255, 0.16);
-}
-.mac-launcher-row-content {
-  spacing: 10px;
-  padding: 2px;
-}
-.mac-launcher-empty {
-  padding: 14px;
-  color: rgba(255, 255, 255, 0.7);
-}
+.mac-shell-indicator { padding: 0 12px; font-weight: 800; letter-spacing: 0.4px; }
+.mac-shell-indicator:hover { background-color: rgba(255,255,255,0.12); }
+.mac-dock { background-color: rgba(24,26,34,0.88); border: 1px solid rgba(255,255,255,0.20); border-radius: 22px; padding: 7px; spacing: 5px; }
+.mac-dock-item { border-radius: 14px; padding: 8px 10px; color: white; }
+.mac-dock-item:hover { background-color: rgba(255,255,255,0.16); }
+.mac-dock-content { spacing: 4px; min-width: 42px; align-items: center; }
+.mac-dock-indicator { width: 4px; height: 4px; border-radius: 4px; background-color: transparent; }
+.mac-dock-indicator-running { background-color: rgba(255,255,255,0.95); }
+.mac-dock-divider { width: 1px; margin: 5px 4px; background-color: rgba(255,255,255,0.25); }
+.mac-dock-launcher { min-width: 40px; }
+.mac-launcher { background-color: rgba(26,28,36,0.97); border: 1px solid rgba(255,255,255,0.18); border-radius: 22px; padding: 14px; spacing: 9px; }
+.mac-launcher-search { background-color: rgba(255,255,255,0.10); border-radius: 12px; padding: 11px; color: white; }
+.mac-launcher-list { spacing: 3px; }
+.mac-launcher-row { border-radius: 10px; padding: 9px 10px; color: white; }
+.mac-launcher-row:hover, .mac-launcher-row-selected { background-color: rgba(255,255,255,0.16); }
+.mac-launcher-row-content { spacing: 11px; padding: 2px; }
+.mac-launcher-empty { padding: 14px; color: rgba(255,255,255,0.7); }
