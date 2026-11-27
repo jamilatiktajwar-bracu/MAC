@@ -1,4 +1,5 @@
 import Adw from 'gi://Adw';
+import Gio from 'gi://Gio';
 import Gtk from 'gi://Gtk';
 import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
@@ -13,8 +14,8 @@ const DEFAULT_FAVORITES = [
 export default class MacShellPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {
     const settings = this.getSettings();
-    window.default_width = 620;
-    window.default_height = 520;
+    window.default_width = 640;
+    window.default_height = 620;
 
     const page = new Adw.PreferencesPage({
       title: 'MAC Desktop',
@@ -46,15 +47,92 @@ export default class MacShellPreferences extends ExtensionPreferences {
     });
     dockGroup.add(magnification);
 
-    const favoritesRow = new Adw.ActionRow({
+    const favoritesGroup = new Adw.PreferencesGroup({
       title: 'Favorite applications',
-      subtitle: 'Comma-separated desktop IDs, in display order.',
+      description: 'Add, remove, and drag rows to change the Dock order.',
     });
-    const favoritesEntry = new Gtk.Entry({
+
+    const availableApps = Gio.AppInfo.get_all()
+      .filter(app => app.should_show() && app.get_id())
+      .map(app => ({ id: app.get_id(), name: app.get_name() }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+    const appNames = availableApps.map(app => app.name);
+    const appModel = Gtk.StringList.new(appNames);
+
+    const pickerRow = new Adw.ActionRow({ title: 'Add an application' });
+    const appPicker = new Gtk.DropDown({
+      model: appModel,
       hexpand: true,
       valign: Gtk.Align.CENTER,
-      text: settings.get_strv('dock-favorites').join(', '),
-      placeholder_text: DEFAULT_FAVORITES.join(', '),
+    });
+    const addButton = new Gtk.Button({
+      label: 'Add',
+      valign: Gtk.Align.CENTER,
+    });
+    addButton.add_css_class('suggested-action');
+    pickerRow.add_suffix(appPicker);
+    pickerRow.add_suffix(addButton);
+    favoritesGroup.add(pickerRow);
+
+    const favoritesList = new Gtk.ListBox({
+      selection_mode: Gtk.SelectionMode.NONE,
+      show_separators: true,
+    });
+    favoritesList.add_css_class('boxed-list');
+
+    const addFavoriteRow = desktopId => {
+      if (!desktopId || favoritesList.get_children().some(row => row._macDesktopId === desktopId))
+        return;
+      const app = Gio.DesktopAppInfo.new(desktopId);
+      const row = new Gtk.ListBoxRow({ reorderable: true });
+      row._macDesktopId = desktopId;
+      const content = new Gtk.Box({
+        orientation: Gtk.Orientation.HORIZONTAL,
+        spacing: 12,
+        margin_top: 6,
+        margin_bottom: 6,
+        margin_start: 12,
+        margin_end: 6,
+      });
+      const label = new Gtk.Label({
+        label: app?.get_name() ?? desktopId,
+        xalign: 0,
+        hexpand: true,
+      });
+      label.set_tooltip_text(desktopId);
+      const removeButton = new Gtk.Button({
+        icon_name: 'list-remove-symbolic',
+        tooltip_text: 'Remove from Dock favorites',
+        valign: Gtk.Align.CENTER,
+      });
+      removeButton.add_css_class('flat');
+      removeButton.connect('clicked', () => favoritesList.remove(row));
+      content.append(label);
+      content.append(removeButton);
+      row.set_child(content);
+      favoritesList.append(row);
+    };
+
+    const loadFavorites = ids => {
+      favoritesList.remove_all();
+      ids.forEach(addFavoriteRow);
+    };
+
+    loadFavorites(settings.get_strv('dock-favorites'));
+
+    addButton.connect('clicked', () => {
+      const selected = appPicker.selected;
+      if (selected !== Gtk.INVALID_LIST_POSITION && availableApps[selected])
+        addFavoriteRow(availableApps[selected].id);
+    });
+
+    const listRow = new Adw.ActionRow({ title: 'Dock order' });
+    listRow.set_child(favoritesList);
+    favoritesGroup.add(listRow);
+
+    const saveRow = new Adw.ActionRow({
+      title: 'Save Dock favorites',
+      subtitle: 'The Dock updates immediately after saving.',
     });
     const saveButton = new Gtk.Button({
       label: 'Save',
@@ -62,18 +140,12 @@ export default class MacShellPreferences extends ExtensionPreferences {
     });
     saveButton.add_css_class('suggested-action');
     saveButton.connect('clicked', () => {
-      const ids = favoritesEntry.text.split(',')
-        .map(value => value.trim())
-        .filter(value => value.length > 0);
+      const ids = favoritesList.get_children().map(row => row._macDesktopId);
       settings.set_strv('dock-favorites', ids);
       saveButton.label = 'Saved';
     });
-    favoritesEntry.connect('changed', () => {
-      saveButton.label = 'Save';
-    });
-    favoritesRow.add_suffix(favoritesEntry);
-    favoritesRow.add_suffix(saveButton);
-    dockGroup.add(favoritesRow);
+    saveRow.add_suffix(saveButton);
+    favoritesGroup.add(saveRow);
 
     const helpGroup = new Adw.PreferencesGroup({
       title: 'MAC OS',
@@ -88,14 +160,15 @@ export default class MacShellPreferences extends ExtensionPreferences {
       valign: Gtk.Align.CENTER,
     });
     resetButton.connect('clicked', () => {
+      loadFavorites(DEFAULT_FAVORITES);
       settings.set_strv('dock-favorites', DEFAULT_FAVORITES);
-      favoritesEntry.text = DEFAULT_FAVORITES.join(', ');
       saveButton.label = 'Saved';
     });
     resetRow.add_suffix(resetButton);
     helpGroup.add(resetRow);
 
     page.add(dockGroup);
+    page.add(favoritesGroup);
     page.add(helpGroup);
     window.add(page);
   }
