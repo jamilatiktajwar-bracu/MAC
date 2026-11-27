@@ -6,7 +6,7 @@ A personal, macOS-inspired operating system project. This project aims to build 
 
 ## Current status
 
-**Desktop prototype v0.3** is available as a browser-based mockup. It is not a bootable operating system yet.
+**Desktop prototype v0.4** is available as a browser-based mockup. It is not a bootable operating system yet.
 
 ## Preview the desktop prototype
 
