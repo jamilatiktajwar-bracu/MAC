@@ -31,9 +31,15 @@ if PATH="$TMP/bin:$PATH" bash "$VERIFY" "$ISO" >/dev/null 2>&1; then
 fi
 
 sha256sum "$ISO" > "$ISO.sha256"
+if MOCK_BIOS=no PATH="$TMP/bin:$PATH" bash "$VERIFY" "$ISO" >/dev/null 2>&1; then
+  echo "Verifier accepted an ISO without a BIOS boot entry." >&2
+  exit 1
+fi
+
+sha256sum "$ISO" > "$ISO.sha256"
 if MOCK_UEFI=no PATH="$TMP/bin:$PATH" bash "$VERIFY" "$ISO" >/dev/null 2>&1; then
   echo "Verifier accepted an ISO without a UEFI boot entry." >&2
   exit 1
 fi
 
-echo "ISO verifier tests passed (valid image, checksum mismatch, missing UEFI entry)."
+echo "ISO verifier tests passed (valid image, checksum mismatch, missing BIOS entry, missing UEFI entry)."
