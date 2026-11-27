@@ -6,7 +6,7 @@ A personal, macOS-inspired operating system project. This project aims to build 
 
 ## Current status
 
-**Desktop prototype v0.4** is available as a browser-based mockup. It is not a bootable operating system yet.
+**Browser prototype v0.4** plus an **experimental native-shell scaffold v0.5**. It is not a bootable operating system yet. The GNOME extension has not yet been tested in a VM.
 
 ## Preview the desktop prototype
 
@@ -27,25 +27,26 @@ Then visit http://localhost:8000.
 - Dock with hover animation and application launcher/search
 - Draggable app windows with minimize, maximize and close
 - Settings mockup, Notes, Files, Browser, Terminal and About apps
-- Launcher shows a friendly empty state when a search has no matches
-- Escape key closes launcher and open quick panels
+- Launcher empty state and quick-panel dismissal
+- Notes local autosave, persistent dark appearance preference, folder interaction demo, simulated terminal commands
 
 **Note:** Apps and system controls are demonstrations; they do not control real hardware or provide actual web browsing.
 
-## Direction
+## Native shell experiment
 
-- **Foundation:** Linux-based distribution (recommended for a practical, bootable first release)
-- **Desktop experience:** custom shell inspired by macOS conventions: top panel, dock, overview, window management
-- **Identity:** original MAC OS branding, icons, wallpapers, themes
-- **Core apps:** file manager, settings, terminal, browser, software center
-- **Delivery:** bootable ISO, live environment, installer
+The first native prototype targets **Debian Stable + GNOME Shell (Wayland)**. The MAC desktop layer is currently a reversible GNOME Shell extension scaffold that adds a `⌘ MAC` panel indicator and toggles Overview. It does not replace GNOME's panel, compositor, or window manager.
+
+- [Architecture decision](docs/ARCHITECTURE.md)
+- [Shell scaffold instructions](shell/README.md)
+- [Disposable VM validation plan](docs/SHELL-VM-TEST.md)
+
+Compatibility and behavior must be tested in a disposable VM before claiming support.
 
 ## Roadmap
 
-See [ROADMAP.md](docs/ROADMAP.md).\n\nNative desktop architecture and GNOME Shell experiment: [Architecture](docs/ARCHITECTURE.md) · [Shell scaffold](shell/README.md).\n\n**v0.5 architecture decision:** Debian Stable + GNOME/Wayland, prototyping the MAC desktop layer as a reversible GNOME Shell extension. The native scaffold is experimental and has not been VM-tested yet.
+See [ROADMAP.md](docs/ROADMAP.md).
 
 ## Development principles
-
 1. Start with a working bootable Linux base.
 2. Make the desktop shell and design system distinctive and maintainable.
 3. Prioritize accessibility, security, performance, and hardware compatibility.
