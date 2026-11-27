@@ -25,7 +25,10 @@ If it fails to load, log out and back in. On Wayland, do not use Alt+F2 then `r`
 - [ ] Extension listed in GNOME Extensions / `gnome-extensions list`
 - [ ] Enable succeeds
 - [ ] MAC indicator appears on top panel
-- [ ] Click opens/closes GNOME Overview
+- [ ] Menu opens and shows Overview, Settings, Terminal entries
+- [ ] Overview menu item toggles GNOME Overview
+- [ ] Settings shortcut launches GNOME Settings if installed
+- [ ] Terminal shortcut launches GNOME Terminal if installed
 - [ ] No extension errors in logs
 - [ ] Disable removes indicator
 - [ ] Re-enable restores indicator
