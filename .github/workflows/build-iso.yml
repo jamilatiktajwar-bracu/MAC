@@ -48,6 +48,7 @@ jobs:
           name: MAC-OS-live-amd64
           path: |
             MAC-OS-amd64.iso
-            MAC-OS-amd64.iso.sha256\n            MAC-OS-build-manifest.txt
+            MAC-OS-amd64.iso.sha256
+            MAC-OS-build-manifest.txt
           if-no-files-found: error
           retention-days: 7
