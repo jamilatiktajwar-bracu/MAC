@@ -8,6 +8,7 @@ on:
       - "styles.css"
       - "shell/gnome-extension/**"
       - "scripts/run-vm.sh"
+      - "scripts/validate-native.sh"
       - "config/includes.chroot/usr/share/applications/mac-desktop-settings.desktop"
       - "config/includes.chroot/usr/share/icons/hicolor/scalable/apps/mac-desktop-settings.svg"
       - "config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/**"
@@ -30,17 +31,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check JavaScript syntax
         run: node --check app.js
-      - name: Check native GNOME extension syntax and schema
-        run: |
-          node --input-type=module --check < shell/gnome-extension/extension.js
-          node --input-type=module --check < shell/gnome-extension/prefs.js
-          python3 -m json.tool shell/gnome-extension/metadata.json >/dev/null
-          bash -n scripts/run-vm.sh
-          python3 -c 'import configparser; p=configparser.ConfigParser(interpolation=None); p.read("config/includes.chroot/usr/share/applications/mac-desktop-settings.desktop"); assert p.get("Desktop Entry", "Exec").startswith("gnome-extensions prefs ")'
-          python3 -c 'import xml.etree.ElementTree as ET; ET.parse("shell/gnome-extension/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml")'
-          cmp shell/gnome-extension/extension.js config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/extension.js
-          cmp shell/gnome-extension/prefs.js config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/prefs.js
-          cmp shell/gnome-extension/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml
+      - name: Check native GNOME extension, preferences and package
+        run: bash scripts/validate-native.sh
       - name: Parse HTML and check unique IDs
         run: |
           python3 - <<'PY'
