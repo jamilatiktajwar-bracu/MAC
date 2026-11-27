@@ -6,7 +6,7 @@ A macOS-inspired desktop project with original branding and implementation, init
 
 ## Current status
 
-Browser prototype v0.4, experimental GNOME Shell v0.6 features, and a Debian live-ISO build pipeline. The image build and shell must still pass CI and VM testing before we can claim a working bootable release.
+Browser prototype v0.6, experimental GNOME Shell v0.6 features, and a Debian live-ISO build pipeline. The image build and shell must still pass CI and VM testing before we can claim a working bootable release.
 
 ## Browser prototype
 
