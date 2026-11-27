@@ -30,9 +30,11 @@ jobs:
           bash -n scripts/verify-iso.sh
           if grep -nF '\n' scripts/build-iso.sh; then echo 'Unexpected literal backslash-n in build script'; exit 1; fi
           node --input-type=module --check < shell/gnome-extension/extension.js
+          node --input-type=module --check < shell/gnome-extension/prefs.js
           node --check app.js
           python3 -m json.tool shell/gnome-extension/metadata.json >/dev/null
           cmp shell/gnome-extension/extension.js config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/extension.js
+          cmp shell/gnome-extension/prefs.js config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/prefs.js
           cmp shell/gnome-extension/stylesheet.css config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/stylesheet.css
           cmp shell/gnome-extension/metadata.json config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/metadata.json
           cmp shell/gnome-extension/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml
