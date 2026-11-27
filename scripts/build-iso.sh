@@ -46,9 +46,7 @@ lb config \
   --distribution stable \
   --mirror-bootstrap "https://deb.debian.org/debian" \
   --mirror-chroot "https://deb.debian.org/debian" \
-  --mirror-chroot-security "https://security.debian.org/debian-security" \
   --mirror-binary "https://deb.debian.org/debian" \
-  --mirror-binary-security "https://security.debian.org/debian-security" \
   --architectures amd64 \
   --archive-areas "main contrib non-free non-free-firmware" \
   --binary-images iso-hybrid \
