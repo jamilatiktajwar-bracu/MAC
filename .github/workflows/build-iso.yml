@@ -28,12 +28,26 @@ jobs:
       - name: Build ISO
         run: sudo bash ./scripts/build-iso.sh
 
-      - name: Upload ISO and checksum
+      - name: Write build summary
+        if: always()
+        run: |
+          echo "## MAC OS ISO build" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Source commit: \`${GITHUB_SHA}\`" >> "$GITHUB_STEP_SUMMARY"
+          if [[ -f MAC-OS-build-manifest.txt ]]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "\`\`\`text" >> "$GITHUB_STEP_SUMMARY"
+            cat MAC-OS-build-manifest.txt >> "$GITHUB_STEP_SUMMARY"
+            echo "\`\`\`" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Manifest not generated; build likely failed before ISO creation." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload ISO, checksum, and manifest
         uses: actions/upload-artifact@v4
         with:
           name: MAC-OS-live-amd64
           path: |
             MAC-OS-amd64.iso
-            MAC-OS-amd64.iso.sha256
+            MAC-OS-amd64.iso.sha256\n            MAC-OS-build-manifest.txt
           if-no-files-found: error
           retention-days: 7
