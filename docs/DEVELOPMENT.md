@@ -32,5 +32,5 @@ The first bootable target should use a stable Linux base (Debian is the initial 
 - v0.2: boot/lock flow and quick panels.
 - v0.3: launcher search empty state and quick-panel dismissal behavior.\n- v0.4: Notes persistence, persistent dark appearance preference, clickable folder mockups, simulated terminal commands.
 - v0.4: core-app functionality and local persistence.
-- v0.5: Linux base and shell architecture research/prototype.
+- v0.5: Debian Stable + GNOME/Wayland architecture documented; experimental GNOME Shell extension scaffold added. VM validation is still pending.
 - v0.6: reproducible bootable image build.
