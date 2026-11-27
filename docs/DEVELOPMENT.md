@@ -1,6 +1,6 @@
 # MAC OS Development Guide
 
-## Current milestone: v0.3 — usability polish
+## Current milestone: v0.4 — core app functionality and persistence
 
 This repository currently contains a browser-based desktop UI prototype, not a Linux distribution or bootable ISO.
 
@@ -21,8 +21,8 @@ This repository currently contains a browser-based desktop UI prototype, not a L
 - [ ] Control Center toggles; tiles respond; brightness changes desktop brightness.
 - [ ] Clock opens notifications and Clear removes the card.
 - [ ] Windows can be dragged, minimized, maximized, restored and closed.
-- [ ] Notes accepts text (currently not persisted).
-- [ ] Terminal accepts input, but commands are simulated.
+- [ ] Notes text saves to local browser storage and survives refresh.
+- [ ] Terminal demo commands: help, clear, about, date, time, pwd, ls, echo, whoami.
 
 ### Planned technical direction
 The first bootable target should use a stable Linux base (Debian is the initial recommendation), with the custom MAC shell layered on top. Do not advertise an ISO until a reproducible build recipe has been created and tested.
@@ -30,7 +30,7 @@ The first bootable target should use a stable Linux base (Debian is the initial 
 ## Milestones
 - v0.1: basic desktop UI.
 - v0.2: boot/lock flow and quick panels.
-- v0.3: launcher search empty state and quick-panel dismissal behavior.
+- v0.3: launcher search empty state and quick-panel dismissal behavior.\n- v0.4: Notes persistence, persistent dark appearance preference, clickable folder mockups, simulated terminal commands.
 - v0.4: core-app functionality and local persistence.
 - v0.5: Linux base and shell architecture research/prototype.
 - v0.6: reproducible bootable image build.
