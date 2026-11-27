@@ -30,8 +30,8 @@
 - [ ] Validate menu, dock, launcher, and GNOME integration in VM
 - [ ] Window management polish and desktop behavior
 - [ ] Theme, icon, animation, and accessibility pass
-- [ ] Keyboard shortcuts and focus navigation
-- [ ] Dock auto-hide, favorite customization, and drag-reorder
+- [x] Browser prototype window shortcuts (close, minimize, maximize)\n- [x] Persistent Dock magnification preference in browser prototype\n- [ ] Native shell keyboard shortcuts and focus navigation
+- [x] Browser prototype Dock magnification control\n- [ ] Native Dock auto-hide, favorite customization, and drag-reorder
 
 ## Phase 3 — System applications
 - [x] Include Files, Web, Terminal, Settings, and Text Editor
@@ -65,4 +65,4 @@ Use an established Linux kernel and distribution for the first usable release. B
 - [x] v0.5.1 — MAC menu, dock and launcher scaffold
 - [x] v0.5.2 — icon dock, running indicators and keyboard controls
 - [x] v0.6-dev — branding assets, live-session defaults, native dock polish and CI source checks
-- [ ] v0.6 — successful ISO build and VM smoke test
+- [ ] v0.6 — successful ISO build and VM smoke test\n- [x] v0.7-dev — browser window shortcuts, persistent Dock magnification, reduced-motion polish\n- [ ] v0.7 — usability, accessibility, and native-shell integration validation
