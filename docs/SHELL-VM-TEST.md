@@ -27,9 +27,14 @@ If it fails to load, log out and back in. On Wayland, do not use Alt+F2 then `r`
 - [ ] MAC indicator appears on top panel
 - [ ] MAC panel menu opens and shows Overview, App Launcher, Settings, Terminal entries
 - [ ] Dock appears centered along bottom of screen
+- [ ] Dock icons render for Files, Settings, Terminal, and Text Editor (fallback if missing)
 - [ ] Dock shortcut launches the matching app when installed
+- [ ] Running apps show a dot below their dock icon; dot clears after app exits
+- [ ] Dock hover feedback is visible
 - [ ] App Launcher overlay opens from panel menu
 - [ ] Typing filters installed app list; no-match message appears
+- [ ] Launcher results show app icons
+- [ ] Up/Down moves highlight, Enter launches selected app, Escape closes launcher
 - [ ] Clicking a launcher result launches it and dismisses overlay
 - [ ] Launcher and dock disappear cleanly when extension is disabled
 - [ ] Overview menu item toggles GNOME Overview
