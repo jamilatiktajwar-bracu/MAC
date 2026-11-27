@@ -18,6 +18,7 @@
 - [x] Add generated build hook for dconf compilation and Plymouth initramfs update
 - [ ] Complete successful CI ISO build
 - [ ] Verify ISO checksum and boot catalog
+- [x] Add QEMU BIOS/UEFI launch helper and VM test matrix
 - [ ] Boot in QEMU/VirtualBox (BIOS and UEFI)
 - [ ] Verify networking, audio, display, and live-session stability
 
@@ -37,13 +38,16 @@
 - [x] Native shell launcher shortcut and keyboard navigation/focus styling
 - [x] Browser prototype Dock magnification control
 - [x] Native dock magnification preference and panel-menu toggle
-- [ ] Native Dock auto-hide, favorite customization, and drag-reorder
+- [x] Native Dock auto-hide and editable favorites in MAC Desktop Settings
+- [ ] Native Dock drag-reorder
 
 ## Phase 3 — System applications
 - [x] Include Files, Web, Terminal, Settings, and Text Editor
-- [ ] Custom Settings experience
+- [x] Native MAC Desktop Settings preferences (libadwaita)
+- [ ] Full GNOME Control Center branding/integration
 - [x] Native dock magnification preference
-- [ ] Native dock auto-hide and favorites controls
+- [x] Native dock auto-hide and favorites controls
+- [ ] Native dock drag-reorder
 - [ ] Software center/package-manager UX
 - [ ] System monitor
 - [ ] First-party Notes app (native, not web demo)
@@ -76,3 +80,5 @@ Use an established Linux kernel and distribution for the first usable release. B
 - [ ] v0.6 — successful ISO build and VM smoke test
 - [x] v0.7-dev — browser window shortcuts and persistent Dock preferences; responsive native launcher, keyboard-focus styling, and GSettings-backed native Dock magnification
 - [ ] v0.7 — usability, accessibility, and native-shell integration validation
+- [x] v0.8-dev — native MAC Desktop Settings, dock auto-hide/favorites, Files shortcuts, and QEMU firmware test tooling
+- [ ] v0.8 — successful ISO build plus BIOS/UEFI VM boot and desktop validation
