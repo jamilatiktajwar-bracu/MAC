@@ -1,0 +1,39 @@
+name: Build MAC OS Live ISO
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "config/**"
+      - "scripts/build-iso.sh"
+      - "shell/gnome-extension/**"
+      - ".github/workflows/build-iso.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install live-build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y live-build debootstrap xorriso squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools
+
+      - name: Build ISO
+        run: sudo ./scripts/build-iso.sh
+
+      - name: Upload ISO and checksum
+        uses: actions/upload-artifact@v4
+        with:
+          name: MAC-OS-live-amd64
+          path: |
+            MAC-OS-amd64.iso
+            MAC-OS-amd64.iso.sha256
+          if-no-files-found: error
+          retention-days: 7
