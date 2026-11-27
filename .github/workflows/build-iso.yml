@@ -28,6 +28,7 @@ jobs:
         run: |
           bash -n scripts/build-iso.sh
           bash -n scripts/verify-iso.sh
+          bash -n scripts/run-vm.sh
           if grep -nF '\n' scripts/build-iso.sh; then echo 'Unexpected literal backslash-n in build script'; exit 1; fi
           node --input-type=module --check < shell/gnome-extension/extension.js
           node --input-type=module --check < shell/gnome-extension/prefs.js
