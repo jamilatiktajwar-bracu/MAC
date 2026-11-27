@@ -1,8 +1,8 @@
 # MAC OS Development Guide
 
-## Current milestone: v0.5.1 — native shell dock and launcher scaffold
+## Current milestone: v0.6 — bootable ISO pipeline (validation pending)
 
-The repository contains a browser UI prototype and an experimental GNOME extension with a panel menu, simple dock, and searchable launcher overlay. It is not a bootable OS or ISO; VM validation is pending.
+The repository has a browser UI prototype, an experimental GNOME extension, and a live-build configuration with GitHub Actions automation for a Debian Stable GNOME live ISO. The ISO build and VM boot remain unverified.
 
 ### Browser prototype
 - From the repository root, run `python3 -m http.server 8000`.
@@ -23,6 +23,9 @@ The repository contains a browser UI prototype and an experimental GNOME extensi
 - [ ] Notes text saves to local browser storage and survives refresh.
 - [ ] Terminal demo commands: help, clear, about, date, time, pwd, ls, echo, whoami.
 
+### ISO build
+See [Bootable ISO build guide](BOOTABLE-ISO.md). Trigger the GitHub Actions workflow manually to build and download the ISO artifact.
+
 ### Native extension test
 See [Shell VM test plan](SHELL-VM-TEST.md). Only test in a disposable Debian GNOME VM; the extension is experimental and not yet validated against a real GNOME Shell session.
 
@@ -32,5 +35,6 @@ See [Shell VM test plan](SHELL-VM-TEST.md). Only test in a disposable Debian GNO
 - v0.3: launcher search empty state and quick-panel dismissal behavior.
 - v0.4: Notes persistence, persistent dark appearance preference, clickable folder mockups, simulated terminal commands.
 - v0.5: Debian Stable + GNOME/Wayland architecture documented; extension scaffold added.
-- v0.5.1: panel menu, bottom dock shortcuts, searchable app-launcher overlay implemented. VM validation and visual polish are pending.
-- v0.6: reproducible bootable image build.
+- v0.5.1: panel menu, dock shortcuts, searchable launcher scaffold.
+- v0.5.2: icon dock, running-app indicators, keyboard navigation.
+- v0.6: live ISO build pipeline added; CI build and VM testing pending.
