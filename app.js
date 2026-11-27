@@ -76,3 +76,50 @@ if(id==='files'){win.querySelectorAll('[data-folder]').forEach(btn=>btn.onclick=
 if(id==='settings'){const dark=win.querySelector('[data-setting="dark"]');if(dark){dark.classList.toggle('on',!!readState().dark);dark.onclick=()=>{const next=!document.body.classList.contains('dark-ui');document.body.classList.toggle('dark-ui',next);dark.classList.toggle('on',next);writeState({dark:next});showToast(next?'Dark appearance enabled':'Light appearance enabled')}}win.querySelectorAll('[data-accent]').forEach(btn=>btn.onclick=()=>{const color=btn.dataset.accent;document.documentElement.style.setProperty('--accent',color);writeState({accent:color});showToast('Accent updated')});const wallpapers={blue:'radial-gradient(ellipse at 15% 20%,#5369bb 0%,transparent 45%),radial-gradient(ellipse at 82% 65%,#55b8e8 0%,transparent 40%),linear-gradient(130deg,#172b54,#192344 45%,#274d67)',violet:'radial-gradient(ellipse at 15% 20%,#7763cf 0%,transparent 45%),radial-gradient(ellipse at 82% 65%,#b56b9a 0%,transparent 40%),linear-gradient(130deg,#172b54,#192344 45%,#5d315e)',sunset:'radial-gradient(ellipse at 15% 20%,#f2a36e 0%,transparent 45%),radial-gradient(ellipse at 82% 65%,#e27b9f 0%,transparent 40%),linear-gradient(130deg,#432a54,#753e5b 45%,#b45d4b)'};win.querySelectorAll('[data-wallpaper]').forEach(btn=>btn.onclick=()=>{const bg=wallpapers[btn.dataset.wallpaper];document.querySelector('.desktop').style.background=bg;writeState({wallpaper:bg});showToast('Wallpaper changed')});}
 if(id==='terminal'){const input=win.querySelector('.terminal input'),out=win.querySelector('.terminal-output');const history=[];function runCommand(raw){const cmd=raw.trim(),parts=cmd.split(/\s+/),name=parts[0]?.toLowerCase(),arg=parts.slice(1).join(' ');if(!cmd)return '';switch(name){case'help':return 'Available: help, clear, about, date, time, pwd, ls, echo, whoami';case'clear':out.textContent='';return null;case'about':return 'MAC OS browser prototype v0.6 · simulated terminal';case'date':return new Date().toDateString();case'time':return new Date().toLocaleTimeString();case'pwd':return '/home/demo';case'ls':return 'Desktop  Documents  Downloads  Pictures  Music  Videos';case'echo':return arg;case'whoami':return 'demo';default:return 'Command not found: '+name+' (type help)'}}input.addEventListener('keydown',e=>{if(e.key==='Enter'){const cmd=input.value;const result=runCommand(cmd);if(result!==null){out.textContent+='\n$ '+cmd+'\n'+result}input.value='';out.scrollTop=out.scrollHeight}});}
 };
+
+
+/* v0.7: desktop keyboard window management and persistent dock preferences */
+(function macV07(){
+  const dock=document.querySelector('.dock');
+  const prefs=readState();
+  if(prefs.dockMagnification) dock?.classList.add('magnified');
+  document.addEventListener('click',event=>{
+    const toggle=event.target.closest('.switch[aria-label="Dock magnification"]');
+    if(!toggle)return;
+    const enabled=toggle.classList.contains('on');
+    dock?.classList.toggle('magnified',enabled);
+    writeState({dockMagnification:enabled});
+  });
+  function topWindow(){
+    return [...document.querySelectorAll('.app-window')].filter(w=>w.style.display!=='none').sort((a,b)=>(Number(b.style.zIndex)||0)-(Number(a.style.zIndex)||0))[0];
+  }
+  function toggleMaximize(win){
+    if(!win)return;
+    const max=win.classList.toggle('maximized');
+    if(max){
+      win.dataset.restoreStyle=JSON.stringify({left:win.style.left,top:win.style.top,width:win.style.width,height:win.style.height,transform:win.style.transform});
+      Object.assign(win.style,{left:'0',top:'0',transform:'none',width:'100%',height:'100%'});
+    }else{
+      let restore={};
+      try{restore=JSON.parse(win.dataset.restoreStyle||'{}')}catch{}
+      Object.assign(win.style,{left:restore.left||'50%',top:restore.top||'50%',transform:restore.transform||'translate(-50%,-50%)',width:restore.width||'min(620px,calc(100vw - 30px))',height:restore.height||'min(440px,calc(100dvh - 140px))'});
+    }
+  }
+  document.addEventListener('keydown',event=>{
+    const win=topWindow();
+    const key=event.key.toLowerCase();
+    if((event.metaKey||event.ctrlKey)&&key==='w'&&win){
+      event.preventDefault();const id=win.dataset.app;win.remove();setDockRunning(id,false);return;
+    }
+    if((event.metaKey||event.ctrlKey)&&key==='m'&&win){
+      event.preventDefault();win.style.display='none';showToast((appDefs[win.dataset.app]?.title||'Window')+' minimized');return;
+    }
+    if((event.metaKey||event.ctrlKey)&&event.altKey&&key==='f'){
+      event.preventDefault();toggleMaximize(win);return;
+    }
+    if(event.key==='Escape'&&launcher.classList.contains('show'))closeLauncher();
+  });
+  document.querySelectorAll('.dock-app').forEach(button=>{
+    button.addEventListener('dblclick',()=>{const id=button.dataset.open;if(!id)return;const win=document.querySelector('.app-window[data-app="'+id+'"]');if(win&&win.style.display==='none'){win.style.display='block';win.style.zIndex=++z;}});
+  });
+})();
