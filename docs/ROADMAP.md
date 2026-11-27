@@ -7,10 +7,11 @@
 - [ ] Establish development/testing workflow
 
 ## Phase 1 — Bootable foundation
+- [x] Create initial live-build configuration and CI ISO build workflow (build/boot validation pending)
 - [ ] Build a reproducible Linux-based image
 - [ ] Boot in QEMU/VirtualBox
 - [ ] Configure user, networking, audio, display, and updates
-- [ ] Produce a first bootable ISO
+- [ ] Produce and verify a first bootable ISO
 
 ## Phase 2 — Desktop experience
 - [ ] Top menu/status panel
@@ -51,4 +52,4 @@ Use an established Linux kernel and base distribution for the first usable relea
 - [x] v0.5 — Debian Stable + GNOME/Wayland architecture decision and reversible extension scaffold
 - [x] v0.5.1 — experimental panel menu, text dock, searchable launcher scaffold (VM testing pending)
 - [x] v0.5.2 — icon dock, running-app dots, launcher keyboard navigation (VM validation pending)
-- [ ] v0.6 — reproducible bootable image build and VM testing
+- [ ] v0.6 — run CI build successfully, boot ISO in VM, and validate shell
