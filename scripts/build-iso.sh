@@ -9,7 +9,11 @@ if [[ "$(id -u)" -ne 0 ]]; then
   exit 1
 fi
 if ! command -v lb >/dev/null 2>&1; then
-  echo "live-build is missing. Install it with: apt install live-build debootstrap xorriso squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools" >&2
+  echo "live-build is missing. Install it with: apt install live-build debootstrap xorriso squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools syslinux-utils" >&2
+  exit 1
+fi
+if ! command -v isohybrid >/dev/null 2>&1; then
+  echo "isohybrid is missing. Install syslinux-utils before building the hybrid ISO." >&2
   exit 1
 fi
 
