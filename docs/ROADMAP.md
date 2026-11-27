@@ -2,7 +2,7 @@
 
 ## Phase 0 — Project foundation
 - [x] Initialize project documentation
-- [ ] Choose base distribution and target hardware
+- [x] Choose initial base distribution (Debian Stable) and desktop stack (GNOME/Wayland extension prototype); hardware target still open
 - [ ] Define name, logo, visual design system, and license
 - [ ] Establish development/testing workflow
 
@@ -51,3 +51,4 @@ Use an established Linux kernel and base distribution for the first usable relea
 - [x] v0.4 — local Notes autosave, persistent dark mode preference, clickable folder demo, simulated terminal commands
 - [ ] v0.5 — prototype shell architecture research and Linux-base selection
 - [ ] v0.6 — reproducible bootable image build and VM testing
+\n\n## Prototype milestones\n- [x] v0.5 — architecture documented and GNOME Shell extension scaffold added\n- [ ] Test scaffold on Debian GNOME VM\n- [ ] Custom MAC panel and launcher prototype\n- [ ] Dock prototype with running indicators\n- [ ] v0.6 — reproducible bootable image build\n
