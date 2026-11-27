@@ -1,16 +1,15 @@
 # MAC OS Development Guide
 
-## Current milestone: v0.4 — core app functionality and persistence
+## Current milestone: v0.5 — native shell architecture and validation
 
-This repository currently contains a browser-based desktop UI prototype, not a Linux distribution or bootable ISO.
+The repository contains a browser-based UI prototype and an experimental GNOME Shell extension scaffold. It is not a bootable operating system or ISO.
 
-### Run locally
-- Use a modern desktop browser.
+### Browser prototype
 - From the repository root, run `python3 -m http.server 8000`.
 - Visit `http://localhost:8000`.
 - Stop the server with Ctrl+C.
 
-### Manual smoke-test checklist
+### Browser smoke-test checklist
 - [ ] Boot splash transitions to lock screen.
 - [ ] Enter Desktop button dismisses lock screen.
 - [ ] Clock updates.
@@ -24,13 +23,13 @@ This repository currently contains a browser-based desktop UI prototype, not a L
 - [ ] Notes text saves to local browser storage and survives refresh.
 - [ ] Terminal demo commands: help, clear, about, date, time, pwd, ls, echo, whoami.
 
-### Planned technical direction
-The first bootable target should use a stable Linux base (Debian is the initial recommendation), with the custom MAC shell layered on top. Do not advertise an ISO until a reproducible build recipe has been created and tested.
+### Native extension test
+See [Shell VM test plan](SHELL-VM-TEST.md). Only test in a disposable Debian GNOME VM; the extension is experimental and not yet validated against a real GNOME Shell session.
 
-## Milestones
+### Milestones
 - v0.1: basic desktop UI.
 - v0.2: boot/lock flow and quick panels.
-- v0.3: launcher search empty state and quick-panel dismissal behavior.\n- v0.4: Notes persistence, persistent dark appearance preference, clickable folder mockups, simulated terminal commands.
-- v0.4: core-app functionality and local persistence.
-- v0.5: Debian Stable + GNOME/Wayland architecture documented; experimental GNOME Shell extension scaffold added. VM validation is still pending.
+- v0.3: launcher search empty state and quick-panel dismissal behavior.
+- v0.4: Notes persistence, persistent dark appearance preference, clickable folder mockups, simulated terminal commands.
+- v0.5: Debian Stable + GNOME/Wayland architecture documented; extension scaffold added. VM validation is pending.
 - v0.6: reproducible bootable image build.
