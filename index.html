@@ -7,7 +7,7 @@
   <title>MAC OS — Desktop Prototype</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body><div class="boot-screen" id="bootScreen"><div class="boot-logo">⌘</div><div class="boot-name">MAC OS</div><div class="boot-progress"><i></i></div><small>Starting your workspace…</small></div><div class="lock-screen" id="lockScreen"><div class="lock-clock" id="lockClock">--:--</div><div class="lock-date" id="lockDate"></div><div class="lock-user"><div class="user-avatar">👤</div><strong>Welcome back</strong><p>Prototype lock screen</p><button class="primary" id="unlockButton">Enter Desktop ↗</button><small>No password required in this demo</small></div></div>
   <div class="desktop" id="desktop">
     <div class="wallpaper-glow"></div>
     <header class="menubar">
@@ -25,7 +25,7 @@
         <button title="Wi-Fi" class="status-icon">◔</button>
         <button title="Battery" class="status-icon">▰</button>
         <button title="Control Center" id="controlCenter" class="status-icon">☷</button>
-        <span id="clock">9:41 AM</span>
+        <button id="clock" title="Notifications">9:41 AM</button>
       </div>
     </header>
 
@@ -46,7 +46,7 @@
       </section>
     </main>
 
-    <div class="window-layer" id="windowLayer"></div>
+    <div class="window-layer" id="windowLayer"></div><section class="control-panel" id="controlPanel"><h3>Control Center</h3><div class="control-grid"><button class="control-tile active" id="wifiTile">◔<span>Wi-Fi</span></button><button class="control-tile" id="focusTile">☾<span>Focus</span></button><button class="control-tile" id="bluetoothTile">ᛒ<span>Bluetooth</span></button><button class="control-tile" id="darkTile">◐<span>Appearance</span></button></div><label>Brightness <input type="range" min="30" max="100" value="85" id="brightness"></label><label>Volume <input type="range" min="0" max="100" value="65" id="volume"></label></section><section class="notification-panel" id="notificationPanel"><h3>Notifications</h3><div class="notification-card"><strong>MAC OS</strong><p>Welcome to your new desktop prototype.</p><small>Just now</small></div><button class="glass-button" id="clearNotifications">Clear notifications</button></section>
     <div class="launcher-backdrop" id="launcherBackdrop"></div>
     <section class="launcher" id="launcher" aria-label="Application launcher">
       <div class="launcher-search"><span>⌕</span><input id="launcherSearch" placeholder="Search apps…" autocomplete="off" /></div>
