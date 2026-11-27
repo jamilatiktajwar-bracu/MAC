@@ -39,7 +39,8 @@
 - [x] Browser prototype Dock magnification control
 - [x] Native dock magnification preference and panel-menu toggle
 - [x] Native Dock auto-hide and editable favorites in MAC Desktop Settings
-- [x] Native Settings favorites picker with installed-app list and accessible move-up/move-down ordering\n- [ ] Native Dock drag-reorder
+- [x] Native Settings favorites picker with installed-app list and accessible move-up/move-down ordering
+- [ ] Native Dock drag-reorder
 
 ## Phase 3 — System applications
 - [x] Include Files, Web, Terminal, Settings, and Text Editor
@@ -47,7 +48,8 @@
 - [ ] Full GNOME Control Center branding/integration
 - [x] Native dock magnification preference
 - [x] Native dock auto-hide and favorites controls
-- [x] Favorites picker supports installed-app selection and accessible move-up/move-down ordering\n- [ ] Native dock drag-reorder
+- [x] Favorites picker supports installed-app selection and accessible move-up/move-down ordering
+- [ ] Native dock drag-reorder
 - [ ] Software center/package-manager UX
 - [ ] System monitor
 - [ ] First-party Notes app (native, not web demo)
