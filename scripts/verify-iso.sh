@@ -22,13 +22,27 @@ if ! command -v xorriso >/dev/null 2>&1; then
 fi
 
 EXPECTED="$(awk 'NR==1 {print $1}' "$CHECKSUM")"
+if [[ ! "$EXPECTED" =~ ^[[:xdigit:]]{64}$ ]]; then
+  echo "Checksum file does not begin with a valid SHA-256 digest: $CHECKSUM" >&2
+  exit 1
+fi
 ACTUAL="$(sha256sum "$ISO" | awk '{print $1}')"
-if [[ -z "$EXPECTED" || "$EXPECTED" != "$ACTUAL" ]]; then
+if [[ "$EXPECTED" != "$ACTUAL" ]]; then
   echo "SHA-256 mismatch for $ISO" >&2
   echo "Expected: $EXPECTED" >&2
   echo "Actual:   $ACTUAL" >&2
   exit 1
 fi
 
-xorriso -indev "$ISO" -report_el_torito
-printf 'Verified ISO: %s\nSHA-256: %s\nSize: %s bytes\n' "$ISO" "$ACTUAL" "$(stat -c %s "$ISO")"
+BOOT_REPORT="$(xorriso -indev "$ISO" -report_el_torito 2>&1)"
+printf '%s\n' "$BOOT_REPORT"
+if ! grep -Eiq 'Platform Id: *0x00|Platform Id: *0x0' <<<"$BOOT_REPORT"; then
+  echo "El Torito BIOS boot entry (platform 0x00) was not found." >&2
+  exit 1
+fi
+if ! grep -Eiq 'Platform Id: *0xef|Platform Id: *0xEF' <<<"$BOOT_REPORT"; then
+  echo "El Torito UEFI boot entry (platform 0xEF) was not found." >&2
+  exit 1
+fi
+
+printf 'Verified ISO: %s\nSHA-256: %s\nSize: %s bytes\nBIOS El Torito entry: present\nUEFI El Torito entry: present\n' "$ISO" "$ACTUAL" "$(stat -c %s "$ISO")"
