@@ -48,7 +48,7 @@ jobs:
       - name: Install live-build tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y live-build debootstrap debian-archive-keyring xorriso squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools
+          sudo apt-get install -y live-build debootstrap debian-archive-keyring xorriso squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools syslinux-utils
 
       - name: Build ISO
         run: sudo bash ./scripts/build-iso.sh
