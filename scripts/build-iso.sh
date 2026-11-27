@@ -50,7 +50,6 @@ lb config \
   --architectures amd64 \
   --archive-areas "main contrib non-free non-free-firmware" \
   --security false \
-  --updates true \
   --binary-images iso-hybrid \
   --bootloader grub2 \
   --debian-installer false \
