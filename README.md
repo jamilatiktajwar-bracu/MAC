@@ -6,7 +6,25 @@ A personal, macOS-inspired operating system project. This project aims to build 
 
 ## Current status
 
-The repository is being initialized. No OS implementation exists yet.
+**Desktop prototype v0.1** is available as a browser-based mockup. It is not a bootable operating system yet.
+
+## Preview the desktop prototype
+
+Open `index.html` directly in a modern browser, or run a local server from the repository root:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then visit http://localhost:8000.
+
+### Prototype features
+- macOS-inspired menu bar and clock
+- Desktop wallpaper concept and desktop shortcuts
+- Dock with hover effect and application launcher/search
+- Draggable application windows, minimize, maximize, close
+- Settings demo with toggles
+- Files, Browser, Terminal, Notes and About app mockups
 
 ## Direction
 
