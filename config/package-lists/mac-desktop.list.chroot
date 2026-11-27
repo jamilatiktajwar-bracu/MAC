@@ -13,6 +13,7 @@ gnome-text-editor
 network-manager
 network-manager-gnome
 dconf-cli
+libglib2.0-bin
 plymouth
 plymouth-themes
 fonts-inter
