@@ -4,8 +4,10 @@ Experimental GNOME Shell extension. Current features:
 
 - `⌘ MAC` top-panel menu: Overview, launcher, Files, Web, Settings, Terminal, About
 - Centered icon dock: Files, Web browser, Text Editor, Settings, Terminal, and app launcher
-- Hover/focus feedback and running-app dots
-- Searchable installed-app launcher with icons and Up/Down/Enter/Escape controls\n- Configurable keyboard shortcut (default Super+K) to open the launcher
+- Hover/focus feedback, running-app dots, and optional native icon magnification
+- MAC panel menu switch to persistently enable/disable dock magnification with GSettings
+- Searchable installed-app launcher with icons and Up/Down/Enter/Escape controls
+- Configurable keyboard shortcut (default Super+K) to open the launcher
 - Dock repositioning when the primary monitor layout changes
 
 The shell is still an additive extension over GNOME; it does not replace the compositor or window manager. The app favorites are hard-coded, dock auto-hide and drag-to-reorder are not implemented, and compatibility has not yet been VM-tested.
@@ -38,6 +40,7 @@ Log out/in if needed. On Wayland, don't restart Shell with Alt+F2, R.
 - App-grid button and Super+K open launcher; typing filters; arrows change selection; Enter launches; Escape closes.
 - Running favorites have a dot indicator.
 - Dock remains correctly positioned after display/monitor changes.
+- Dock magnification switch persists through the extension's GSettings schema.
 - Disabling the extension removes its panel item, dock, and launcher.
 
 ## Disable / remove
