@@ -6,7 +6,7 @@ A personal, macOS-inspired operating system project. This project aims to build 
 
 ## Current status
 
-**Browser prototype v0.4** plus an **experimental native-shell prototype v0.5.1** featuring a panel menu, text dock, and searchable app-launcher overlay. It is not a bootable operating system yet. The GNOME extension has not yet been tested in a VM.
+**Browser prototype v0.4** plus experimental native-shell v0.5.2 (icon dock, launcher keyboard controls, and running-app dots) and an initial Debian live-ISO build pipeline. The ISO build and GNOME extension still require VM testing.
 
 ## Preview the desktop prototype
 
@@ -38,6 +38,7 @@ The first native prototype targets **Debian Stable + GNOME Shell (Wayland)**. Th
 
 - [Architecture decision](docs/ARCHITECTURE.md)
 - [Shell scaffold instructions](shell/README.md)
+- [Bootable ISO build instructions](docs/BOOTABLE-ISO.md)
 - [Disposable VM validation plan](docs/SHELL-VM-TEST.md)
 
 Compatibility and behavior must be tested in a disposable VM before claiming support.
