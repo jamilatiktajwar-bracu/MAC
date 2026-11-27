@@ -22,6 +22,7 @@ Then visit http://localhost:8000. The web demo includes boot/lock flow, menu bar
 
 The initial native target is Debian Stable + GNOME/Wayland. MAC is currently an extension layered on GNOME—not a new kernel, compositor, or standalone OS.
 
+- [Visual design system](docs/DESIGN-SYSTEM.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Shell features and testing](shell/README.md)
 - [ISO build guide](docs/BOOTABLE-ISO.md)
