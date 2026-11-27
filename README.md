@@ -34,7 +34,7 @@ Then visit http://localhost:8000.
 
 ## Native shell experiment
 
-The first native prototype targets **Debian Stable + GNOME Shell (Wayland)**. The MAC desktop layer is currently a reversible GNOME Shell extension scaffold that adds a `⌘ MAC` panel indicator and toggles Overview. It does not replace GNOME's panel, compositor, or window manager.
+The first native prototype targets **Debian Stable + GNOME Shell (Wayland)**. The MAC desktop layer is currently a reversible GNOME Shell extension scaffold that adds a `⌘ MAC` panel menu with Overview, Settings, and Terminal shortcuts. It does not replace GNOME's panel, compositor, or window manager.
 
 - [Architecture decision](docs/ARCHITECTURE.md)
 - [Shell scaffold instructions](shell/README.md)
