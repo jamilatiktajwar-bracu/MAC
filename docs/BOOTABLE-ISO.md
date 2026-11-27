@@ -1,12 +1,12 @@
 # Bootable ISO build (experimental)
 
-This produces a Debian Stable live image with GNOME, MAC desktop defaults, a custom wallpaper, a minimal Plymouth theme, and the experimental MAC GNOME Shell extension. It is a Linux-based prototype, not a new kernel or independent distribution.
+The build script explicitly points all package stages to Debian mirrors (not the Ubuntu host's default apt mirror). This produces a Debian Stable live image with GNOME, MAC desktop defaults, a custom wallpaper, a minimal Plymouth theme, and the experimental MAC GNOME Shell extension. It is a Linux-based prototype, not a new kernel or independent distribution.
 
 ## Local build (Debian/Ubuntu)
 
 ```bash
 sudo apt update
-sudo apt install live-build debootstrap xorriso squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools
+sudo apt install live-build debootstrap debian-archive-keyring xorriso squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools
 sudo bash ./scripts/build-iso.sh
 ```
 
