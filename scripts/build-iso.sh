@@ -54,6 +54,7 @@ lb config \
   --bootloader grub2 \
   --debian-installer false \
   --linux-flavours amd64 \
+  --linux-packages linux-image \
   --bootappend-live "boot=live components quiet splash" \
   --apt-recommends true
 
