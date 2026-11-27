@@ -42,7 +42,7 @@ Then visit http://localhost:8000.
 
 ## Roadmap
 
-See [ROADMAP.md](docs/ROADMAP.md).
+See [ROADMAP.md](docs/ROADMAP.md).\n\nNative desktop architecture and GNOME Shell experiment: [Architecture](docs/ARCHITECTURE.md) · [Shell scaffold](shell/README.md).\n\n**v0.5 architecture decision:** Debian Stable + GNOME/Wayland, prototyping the MAC desktop layer as a reversible GNOME Shell extension. The native scaffold is experimental and has not been VM-tested yet.
 
 ## Development principles
 
