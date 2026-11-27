@@ -16,7 +16,7 @@ permissions:
 
 concurrency:
   group: mac-iso-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
