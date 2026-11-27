@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=MAC OS
+Description=Minimal MAC OS splash
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/mac
+ScriptFile=/usr/share/plymouth/themes/mac/mac.script
