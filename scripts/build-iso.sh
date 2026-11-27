@@ -69,7 +69,10 @@ else
   find "$ROOT" -maxdepth 1 -name "*.iso" -print
   exit 1
 fi
-sha256sum "$ISO" | tee "$ISO.sha256"\n\n# Inspect the image boot catalog so malformed ISO output fails the build.\nxorriso -indev "$ISO" -report_el_torito
+sha256sum "$ISO" | tee "$ISO.sha256"
+
+# Inspect the image boot catalog so malformed ISO output fails the build.
+xorriso -indev "$ISO" -report_el_torito
 
 MANIFEST="$ROOT/MAC-OS-build-manifest.txt"
 {
