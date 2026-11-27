@@ -5,3 +5,46 @@
 .mac-shell-indicator:hover {
   background-color: rgba(255, 255, 255, 0.12);
 }
+
+.mac-dock {
+  background-color: rgba(30, 30, 36, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  padding: 8px;
+  spacing: 8px;
+}
+
+.mac-dock-item {
+  border-radius: 12px;
+  padding: 8px 12px;
+  color: white;
+}
+.mac-dock-item:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.mac-launcher {
+  background-color: rgba(32, 32, 38, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  padding: 12px;
+  spacing: 8px;
+}
+.mac-launcher-search {
+  background-color: rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+}
+.mac-launcher-row {
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: white;
+}
+.mac-launcher-row:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+.mac-launcher-empty {
+  padding: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
