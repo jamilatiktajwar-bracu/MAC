@@ -5,7 +5,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
 if [[ "$(id -u)" -ne 0 ]]; then
-  echo "Run as root (example: sudo ./scripts/build-iso.sh)." >&2
+  echo "Run as root (example: sudo bash ./scripts/build-iso.sh)." >&2
   exit 1
 fi
 if ! command -v lb >/dev/null 2>&1; then
