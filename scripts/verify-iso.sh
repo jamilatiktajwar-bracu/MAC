@@ -36,11 +36,11 @@ fi
 
 BOOT_REPORT="$(xorriso -indev "$ISO" -report_el_torito 2>&1)"
 printf '%s\n' "$BOOT_REPORT"
-if ! grep -Eiq 'Platform Id: *0x00|Platform Id: *0x0' <<<"$BOOT_REPORT"; then
+if ! grep -Eiq 'El Torito boot img :[[:space:]]*[0-9]+[[:space:]]+BIOS([[:space:]]|$)' <<<"$BOOT_REPORT"; then
   echo "El Torito BIOS boot entry (platform 0x00) was not found." >&2
   exit 1
 fi
-if ! grep -Eiq 'Platform Id: *0xef|Platform Id: *0xEF' <<<"$BOOT_REPORT"; then
+if ! grep -Eiq 'El Torito boot img :[[:space:]]*[0-9]+[[:space:]]+UEFI([[:space:]]|$)' <<<"$BOOT_REPORT"; then
   echo "El Torito UEFI boot entry (platform 0xEF) was not found." >&2
   exit 1
 fi
