@@ -159,7 +159,7 @@ export default class MacShellExtension extends Extension {
       return;
     }
 
-    for (const app of matches) {
+    for (const [index, app] of matches.entries()) {
       const icon = app instanceof Gio.DesktopAppInfo ? app.get_icon() : null;
       const iconActor = new St.Icon({ gicon: icon, icon_size: 24, style_class: 'mac-launcher-app-icon' });
       const rowContent = new St.BoxLayout({ style_class: 'mac-launcher-row-content' });
@@ -171,6 +171,7 @@ export default class MacShellExtension extends Extension {
         child: rowContent,
       });
       row.connect('clicked', () => this._launchLauncherApp(app));
+      if (index === 0) row.add_style_class_name('mac-launcher-row-selected');
       this._launcherList.add_child(row);
     }
   }
