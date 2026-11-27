@@ -21,6 +21,9 @@ mkdir -p "$HOOK_DIR"
 cat > "$HOOK" <<'MAC_CHROOT_HOOK'
 #!/bin/sh
 set -eu
+if command -v glib-compile-schemas >/dev/null 2>&1; then
+  glib-compile-schemas --strict /usr/share/gnome-shell/extensions/mac-shell@macos-project/schemas
+fi
 if command -v dconf >/dev/null 2>&1; then
   dconf update
 fi
