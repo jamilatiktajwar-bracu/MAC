@@ -74,5 +74,5 @@ Use an established Linux kernel and distribution for the first usable release. B
 - [x] v0.5.2 — icon dock, running indicators and keyboard controls
 - [x] v0.6-dev — branding assets, live-session defaults, native dock polish and CI source checks
 - [ ] v0.6 — successful ISO build and VM smoke test
-- [x] v0.7-dev — browser window shortcuts, persistent Dock magnification, reduced-motion polish
+- [x] v0.7-dev — browser window shortcuts and persistent Dock preferences; responsive native launcher, keyboard-focus styling, and GSettings-backed native Dock magnification
 - [ ] v0.7 — usability, accessibility, and native-shell integration validation
