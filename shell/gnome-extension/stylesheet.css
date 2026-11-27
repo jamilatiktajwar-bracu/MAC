@@ -21,7 +21,6 @@
 }
 .mac-dock-item:hover {
   background-color: rgba(255, 255, 255, 0.14);
-  transform: scale(1.06);
 }
 .mac-dock-content {
   spacing: 4px;
