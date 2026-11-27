@@ -1,0 +1,16 @@
+live-boot
+live-config
+live-config-systemd
+gnome-core
+gnome-shell
+gnome-session
+gdm3
+nautilus
+gnome-terminal
+gnome-control-center
+gnome-text-editor
+network-manager
+network-manager-gnome
+sudo
+curl
+wget
