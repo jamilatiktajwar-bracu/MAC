@@ -18,7 +18,7 @@ lb config \
   --architectures amd64 \
   --archive-areas "main contrib non-free non-free-firmware" \
   --binary-images iso-hybrid \
-  --bootloaders "grub-efi grub-pc" \
+  --bootloaders "grub-efi,grub-pc" \
   --debian-installer false \
   --linux-flavours amd64 \
   --bootappend-live "boot=live components quiet splash" \
