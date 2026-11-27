@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#10141f" />
+  <title>MAC OS — Desktop Prototype</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="desktop" id="desktop">
+    <div class="wallpaper-glow"></div>
+    <header class="menubar">
+      <div class="menu-left">
+        <button class="apple-mark" aria-label="MAC menu" id="systemMenu">⌘</button>
+        <strong>MAC</strong>
+        <button class="menu-label" data-menu="Finder">Finder</button>
+        <button class="menu-label" data-menu="File">File</button>
+        <button class="menu-label" data-menu="Edit">Edit</button>
+        <button class="menu-label" data-menu="View">View</button>
+        <button class="menu-label" data-menu="Window">Window</button>
+        <button class="menu-label" data-menu="Help">Help</button>
+      </div>
+      <div class="menu-right">
+        <button title="Wi-Fi" class="status-icon">◔</button>
+        <button title="Battery" class="status-icon">▰</button>
+        <button title="Control Center" id="controlCenter" class="status-icon">☷</button>
+        <span id="clock">9:41 AM</span>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <div class="desktop-icons">
+        <button class="desktop-icon" data-open="files"><span class="icon-emoji">📁</span><span>Files</span></button>
+        <button class="desktop-icon" data-open="browser"><span class="icon-emoji">🌐</span><span>Browser</span></button>
+        <button class="desktop-icon" data-open="settings"><span class="icon-emoji">⚙️</span><span>Settings</span></button>
+      </div>
+      <section class="welcome-card">
+        <p class="eyebrow">FIRST DESKTOP CONCEPT</p>
+        <h1>Welcome to <span>MAC OS</span></h1>
+        <p>A calm, modern desktop. Built by you.</p>
+        <div class="welcome-actions">
+          <button class="primary" data-open="about">Explore MAC OS</button>
+          <button class="glass-button" data-open="settings">Personalize</button>
+        </div>
+      </section>
+    </main>
+
+    <div class="window-layer" id="windowLayer"></div>
+    <div class="launcher-backdrop" id="launcherBackdrop"></div>
+    <section class="launcher" id="launcher" aria-label="Application launcher">
+      <div class="launcher-search"><span>⌕</span><input id="launcherSearch" placeholder="Search apps…" autocomplete="off" /></div>
+      <div class="launcher-grid" id="launcherGrid">
+        <button class="launcher-app" data-open="files"><span>📁</span>Files</button>
+        <button class="launcher-app" data-open="browser"><span>🌐</span>Browser</button>
+        <button class="launcher-app" data-open="settings"><span>⚙️</span>Settings</button>
+        <button class="launcher-app" data-open="terminal"><span>⌨️</span>Terminal</button>
+        <button class="launcher-app" data-open="notes"><span>📝</span>Notes</button>
+        <button class="launcher-app" data-open="about"><span>✨</span>About MAC</button>
+      </div>
+    </section>
+
+    <nav class="dock" aria-label="Dock">
+      <button class="dock-app" data-open="files" title="Files"><span>📁</span></button>
+      <button class="dock-app" data-open="browser" title="Browser"><span>🌐</span></button>
+      <button class="dock-app" data-open="notes" title="Notes"><span>📝</span></button>
+      <button class="dock-app" data-open="terminal" title="Terminal"><span>⌨️</span></button>
+      <span class="dock-divider"></span>
+      <button class="dock-app" data-open="settings" title="Settings"><span>⚙️</span></button>
+      <button class="dock-app launcher-toggle" id="launcherToggle" title="Applications"><span>◈</span></button>
+    </nav>
+    <div class="toast" id="toast"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
