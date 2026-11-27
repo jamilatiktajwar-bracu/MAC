@@ -11,7 +11,7 @@ cat > "$TMP/bin/xorriso" <<'MOCK_XORRISO'
 #!/usr/bin/env bash
 set -euo pipefail
 printf '%s\n' 'El Torito catalog  : 42  1'
-printf '%s\n' 'El Torito boot img : 1  BIOS  y  none  0x0000  0x00  4  1234'
+if [[ "${MOCK_BIOS:-yes}" == yes ]]; then\n  printf '%s\\n' 'El Torito boot img : 1  BIOS  y  none  0x0000  0x00  4  1234'\nfi
 if [[ "${MOCK_UEFI:-yes}" == yes ]]; then
   printf '%s\n' 'El Torito boot img : 2  UEFI  y  none  0x0000  0x00  4  5678'
 fi
