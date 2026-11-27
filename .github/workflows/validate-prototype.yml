@@ -6,6 +6,8 @@ on:
       - "app.js"
       - "index.html"
       - "styles.css"
+      - "shell/gnome-extension/**"
+      - "config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/**"
       - ".github/workflows/validate-prototype.yml"
   pull_request:
     paths:
@@ -25,6 +27,15 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check JavaScript syntax
         run: node --check app.js
+      - name: Check native GNOME extension syntax and schema
+        run: |
+          node --input-type=module --check < shell/gnome-extension/extension.js
+          node --input-type=module --check < shell/gnome-extension/prefs.js
+          python3 -m json.tool shell/gnome-extension/metadata.json >/dev/null
+          python3 -c 'import xml.etree.ElementTree as ET; ET.parse("shell/gnome-extension/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml")'
+          cmp shell/gnome-extension/extension.js config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/extension.js
+          cmp shell/gnome-extension/prefs.js config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/prefs.js
+          cmp shell/gnome-extension/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml
       - name: Parse HTML and check unique IDs
         run: |
           python3 - <<'PY'
