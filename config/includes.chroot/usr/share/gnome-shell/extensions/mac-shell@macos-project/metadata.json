@@ -2,6 +2,7 @@
   "uuid": "mac-shell@macos-project",
   "name": "MAC Shell",
   "description": "MAC desktop panel, dock, and searchable application launcher",
-  "version": 2,
+  "version": 3,
+  "settings-schema": "org.gnome.shell.extensions.mac-shell",
   "shell-version": ["45", "46", "47", "48", "49", "50"]
 }
