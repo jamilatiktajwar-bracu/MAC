@@ -98,3 +98,29 @@ Create two disposable Linux VMs using the same ISO:
 - Do not install to the virtual hard disk; this milestone tests live boot only.
 
 Record the host OS, QEMU/VirtualBox version, firmware mode, ISO SHA-256, boot result, and any shell errors for each run.
+
+
+## Hardware and live-session validation
+
+Run these checks in both QEMU and VirtualBox where the virtual hardware supports them. Record each result as Pass, Fail, or Not tested; include the VM configuration and logs.
+
+- [ ] Audio: confirm the virtual sound device is detected, select the output sink, and play a local test sound.
+- [ ] Microphone: confirm input device detection and a short recording/playback test (if virtual input is configured).
+- [ ] Wi-Fi/network: confirm NetworkManager sees the configured virtual network adapter, obtains an address, and can reach a known HTTPS endpoint. A virtual Ethernet adapter does not validate physical Wi-Fi chipset support.
+- [ ] Display: test the default resolution, resizing/full-screen, multi-resolution changes, and GNOME Wayland session stability.
+- [ ] Suspend/resume: attempt suspend and resume, then verify display, audio, network, keyboard, and pointer recover. Mark unsupported hypervisor behavior as Not supported rather than Passed.
+- [ ] Accessibility: navigate Settings, launcher, and Dock using keyboard only; verify screen-reader labels and focus visibility.
+- [ ] Stability: inspect `journalctl --user -b` and `journalctl -b` for repeated GNOME Shell, NetworkManager, audio, or kernel errors.
+
+Suggested diagnostics:
+
+```bash
+nmcli device status
+wpctl status
+pactl info
+loginctl session-status
+journalctl --user -b -p warning
+journalctl -b -p warning
+```
+
+A VM's emulated Ethernet adapter is not a substitute for testing a real Wi-Fi chipset. Suspend support also varies by hypervisor and host OS.
