@@ -13,6 +13,31 @@ if ! command -v lb >/dev/null 2>&1; then
   exit 1
 fi
 
+# Install a build-only chroot hook so dconf defaults and Plymouth theme are
+# compiled into the image and initramfs after our include files are in place.
+HOOK_DIR="$ROOT/config/hooks/live"
+HOOK="$HOOK_DIR/0100-mac-branding.hook.chroot"
+mkdir -p "$HOOK_DIR"
+cat > "$HOOK" <<'MAC_CHROOT_HOOK'
+#!/bin/sh
+set -eu
+if command -v dconf >/dev/null 2>&1; then
+  dconf update
+fi
+if command -v plymouth-set-default-theme >/dev/null 2>&1; then
+  plymouth-set-default-theme mac
+fi
+if command -v update-initramfs >/dev/null 2>&1; then
+  update-initramfs -u
+fi
+MAC_CHROOT_HOOK
+chmod +x "$HOOK"
+cleanup_hook() {
+  rm -f "$HOOK"
+  rmdir "$HOOK_DIR" 2>/dev/null || true
+}
+trap cleanup_hook EXIT
+
 lb config \
   --distribution stable \
   --architectures amd64 \
@@ -36,7 +61,7 @@ else
   find "$ROOT" -maxdepth 1 -name "*.iso" -print
   exit 1
 fi
-sha256sum "$ISO" | tee "$ISO.sha256"
+sha256sum "$ISO" | tee "$ISO.sha256"\n\n# Inspect the image boot catalog so malformed ISO output fails the build.\nxorriso -indev "$ISO" -report_el_torito
 
 MANIFEST="$ROOT/MAC-OS-build-manifest.txt"
 {
