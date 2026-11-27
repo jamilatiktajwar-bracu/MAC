@@ -1,7 +1,10 @@
 # MAC OS — Disposable VM Validation Plan
 
 ## Goal
-Verify the starter GNOME Shell extension loads, adds its MAC panel button, toggles Overview on click, and can be cleanly disabled. This plan is not a claim that tests have passed.
+Boot the first experimental MAC OS live ISO, then verify the starter GNOME Shell extension loads, adds its MAC panel button, toggles Overview on click, and can be cleanly disabled. This plan is not a claim that tests have passed.
+
+## ISO source
+Build/download using [BOOTABLE-ISO.md](BOOTABLE-ISO.md) and verify the checksum before booting.
 
 ## Suggested VM
 - Debian Stable with GNOME desktop
@@ -22,6 +25,9 @@ gnome-extensions info mac-shell@macos-project
 If it fails to load, log out and back in. On Wayland, do not use Alt+F2 then `r` to restart Shell.
 
 ## Test checklist
+- [ ] ISO boots to live GNOME session (BIOS and/or UEFI)
+- [ ] NetworkManager networking is available
+- [ ] System reports Debian Stable and expected GNOME version
 - [ ] Extension listed in GNOME Extensions / `gnome-extensions list`
 - [ ] Enable succeeds
 - [ ] MAC indicator appears on top panel
