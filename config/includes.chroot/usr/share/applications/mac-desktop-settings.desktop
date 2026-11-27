@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=MAC Desktop Settings
+Comment=Configure the MAC dock and desktop preferences
+Exec=gnome-extensions prefs mac-shell@macos-project
+TryExec=gnome-extensions
+Icon=preferences-desktop
+Terminal=false
+Categories=Settings;DesktopSettings;
+StartupNotify=true
