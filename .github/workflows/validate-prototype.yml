@@ -1,0 +1,47 @@
+name: Validate browser prototype
+
+on:
+  push:
+    paths:
+      - "app.js"
+      - "index.html"
+      - "styles.css"
+      - ".github/workflows/validate-prototype.yml"
+  pull_request:
+    paths:
+      - "app.js"
+      - "index.html"
+      - "styles.css"
+      - ".github/workflows/validate-prototype.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check JavaScript syntax
+        run: node --check app.js
+      - name: Parse HTML and check unique IDs
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from collections import Counter
+          class Checker(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.ids = []
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  if 'id' in attrs:
+                      self.ids.append(attrs['id'])
+          parser = Checker()
+          parser.feed(open('index.html', encoding='utf-8').read())
+          dupes = [key for key, count in Counter(parser.ids).items() if count > 1]
+          if dupes:
+              raise SystemExit('Duplicate HTML IDs: ' + ', '.join(dupes))
+          print(f'HTML parsed; {len(parser.ids)} unique IDs found.')
+          PY
