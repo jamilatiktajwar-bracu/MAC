@@ -27,6 +27,7 @@ jobs:
       - name: Validate source files
         run: |
           bash -n scripts/build-iso.sh
+          bash -n scripts/verify-iso.sh
           if grep -nF '\n' scripts/build-iso.sh; then echo 'Unexpected literal backslash-n in build script'; exit 1; fi
           node --input-type=module --check < shell/gnome-extension/extension.js
           node --check app.js
@@ -44,6 +45,9 @@ jobs:
 
       - name: Build ISO
         run: sudo bash ./scripts/build-iso.sh
+
+      - name: Verify generated ISO
+        run: bash ./scripts/verify-iso.sh MAC-OS-amd64.iso
 
       - name: Write build summary
         if: always()
