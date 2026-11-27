@@ -9,6 +9,10 @@ nautilus
 epiphany-browser
 gnome-terminal
 gnome-control-center
+gnome-shell-extension-prefs
+gnome-system-monitor
+gnome-calculator
+gnome-disk-utility
 gnome-text-editor
 network-manager
 network-manager-gnome
