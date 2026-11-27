@@ -10,7 +10,7 @@ sudo apt install live-build debootstrap debian-archive-keyring xorriso squashfs-
 sudo bash ./scripts/build-iso.sh
 ```
 
-The build produces `MAC-OS-amd64.iso`, a checksum file, and `MAC-OS-build-manifest.txt` (UTC timestamp, source commit, architecture, size, SHA-256). It requires network access and several GB of free space. Builds are not guaranteed byte-for-byte reproducible because Debian packages move.
+The build produces `MAC-OS-amd64.iso`, a checksum file, and `MAC-OS-build-manifest.txt`. The workflow independently re-checks the SHA-256 and El Torito boot catalog with `scripts/verify-iso.sh` before uploading the artifact (UTC timestamp, source commit, architecture, size, SHA-256). It requires network access and several GB of free space. Builds are not guaranteed byte-for-byte reproducible because Debian packages move.
 
 ## GitHub Actions
 
@@ -19,7 +19,7 @@ The **Build MAC OS Live ISO** workflow triggers on relevant source changes and c
 ## Included environment
 
 - Debian Stable amd64 with GNOME Shell, session, GDM
-- Files, Epiphany Web, Terminal, Settings, Text Editor
+- Files, Epiphany Web, Terminal, Settings, Text Editor\n- GNOME Extension Preferences, System Monitor, Calculator, Disk Utility
 - NetworkManager
 - live-boot / live-config
 - Inter and emoji fonts, Papirus icons, Plymouth
@@ -58,3 +58,14 @@ See [VM checklist](SHELL-VM-TEST.md). Build, boot, splash theme, wallpaper, and 
 - Make sure network and disk space are sufficient.
 - Inspect shell errors with `journalctl --user -b | grep -i -E 'gnome-shell|mac-shell'`.
 - Do not install on real hardware yet: the project has no installer, disk-partition flow, backup safeguard, or recovery plan.
+
+## Verify a downloaded ISO
+
+Install `xorriso` if needed, place the ISO and its matching `.sha256` file in the same directory, then run:
+
+```bash
+sudo apt install xorriso
+bash ./scripts/verify-iso.sh MAC-OS-amd64.iso
+```
+
+A successful check confirms the checksum and reports the ISO boot catalog. It does not replace an actual BIOS/UEFI VM boot test.
