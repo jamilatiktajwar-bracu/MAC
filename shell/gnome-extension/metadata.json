@@ -1,0 +1,13 @@
+{
+  "uuid": "mac-shell@macos-project",
+  "name": "MAC Shell",
+  "description": "Early MAC OS desktop shell experiment",
+  "shellVersion": [
+    "45",
+    "46",
+    "47",
+    "48",
+    "49"
+  ],
+  "version": 1
+}
