@@ -164,7 +164,7 @@ export default class MacShellExtension extends Extension {
     const apps = Gio.AppInfo.get_all().filter(app => app.should_show())
       .sort((a, b) => a.get_name().localeCompare(b.get_name()));
     const normalized = query.trim().toLowerCase();
-    const matches = apps.filter(app => app.get_name().toLowerCase().includes(normalized)).slice(0, 14);
+    const matches = apps.filter(app => app.get_name().toLowerCase().includes(normalized)).slice(0, 10);
     this._launcherApps = matches;
     this._launcherSelection = 0;
     if (!matches.length) {
