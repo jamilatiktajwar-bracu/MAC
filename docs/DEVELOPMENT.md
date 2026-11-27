@@ -1,8 +1,8 @@
 # MAC OS Development Guide
 
-## Current milestone: v0.5 — native shell architecture and validation
+## Current milestone: v0.5.1 — native shell dock and launcher scaffold
 
-The repository contains a browser-based desktop UI prototype and an experimental GNOME Shell extension scaffold. It is not a bootable operating system or ISO.
+The repository contains a browser UI prototype and an experimental GNOME extension with a panel menu, simple dock, and searchable launcher overlay. It is not a bootable OS or ISO; VM validation is pending.
 
 ### Browser prototype
 - From the repository root, run `python3 -m http.server 8000`.
@@ -31,5 +31,6 @@ See [Shell VM test plan](SHELL-VM-TEST.md). Only test in a disposable Debian GNO
 - v0.2: boot/lock flow and quick panels.
 - v0.3: launcher search empty state and quick-panel dismissal behavior.
 - v0.4: Notes persistence, persistent dark appearance preference, clickable folder mockups, simulated terminal commands.
-- v0.5: Debian Stable + GNOME/Wayland architecture documented; extension scaffold added. VM validation is pending.
+- v0.5: Debian Stable + GNOME/Wayland architecture documented; extension scaffold added.
+- v0.5.1: panel menu, bottom dock shortcuts, searchable app-launcher overlay implemented. VM validation and visual polish are pending.
 - v0.6: reproducible bootable image build.
