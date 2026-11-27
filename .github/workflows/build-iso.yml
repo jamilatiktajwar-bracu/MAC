@@ -6,6 +6,7 @@ on:
     paths:
       - "config/**"
       - "scripts/build-iso.sh"
+      - "scripts/verify-iso.sh"
       - "scripts/run-vm.sh"
       - "scripts/validate-native.sh"
       - "shell/gnome-extension/**"
