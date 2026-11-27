@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2560" height="1600" viewBox="0 0 2560 1600">
+<defs>
+ <linearGradient id="base" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#091426"/><stop offset=".5" stop-color="#101c39"/><stop offset="1" stop-color="#080b17"/></linearGradient>
+ <radialGradient id="glowA"><stop stop-color="#53b8ff" stop-opacity=".72"/><stop offset="1" stop-color="#53b8ff" stop-opacity="0"/></radialGradient>
+ <radialGradient id="glowB"><stop stop-color="#a77bff" stop-opacity=".55"/><stop offset="1" stop-color="#a77bff" stop-opacity="0"/></radialGradient>
+ <linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#71d7ff" stop-opacity=".66"/><stop offset=".5" stop-color="#9c8cff" stop-opacity=".52"/><stop offset="1" stop-color="#ff85c7" stop-opacity=".18"/></linearGradient>
+ <filter id="blur"><feGaussianBlur stdDeviation="100"/></filter>
+</defs>
+<rect width="2560" height="1600" fill="url(#base)"/>
+<g filter="url(#blur)"><ellipse cx="640" cy="480" rx="700" ry="560" fill="url(#glowA)"/><ellipse cx="1900" cy="950" rx="800" ry="620" fill="url(#glowB)"/></g>
+<path d="M-150 1120 C430 690 820 930 1260 520 S2070 220 2720 610" fill="none" stroke="url(#ribbon)" stroke-width="230" stroke-linecap="round" opacity=".38"/>
+<path d="M-100 1300 C460 870 860 1110 1320 690 S2100 420 2680 760" fill="none" stroke="#66cfff" stroke-width="6" opacity=".2"/>
+<path d="M-80 1370 C460 940 900 1170 1380 760 S2130 500 2650 820" fill="none" stroke="#d4c5ff" stroke-width="3" opacity=".12"/>
+<g fill="#fff" opacity=".3"><circle cx="350" cy="240" r="2"/><circle cx="550" cy="160" r="2"/><circle cx="1000" cy="250" r="2"/><circle cx="1560" cy="180" r="2"/><circle cx="2200" cy="300" r="2"/><circle cx="2330" cy="570" r="2"/><circle cx="1860" cy="1280" r="2"/><circle cx="700" cy="1420" r="2"/></g>
+</svg>
