@@ -34,14 +34,16 @@
 - [ ] Theme, icon, animation, and full accessibility pass
 - [x] Browser prototype window shortcuts (close, minimize, maximize)
 - [x] Persistent Dock magnification preference in browser prototype
-- [ ] Native shell keyboard shortcuts and focus navigation
+- [x] Native shell launcher shortcut and keyboard navigation/focus styling
 - [x] Browser prototype Dock magnification control
+- [x] Native dock magnification preference and panel-menu toggle
 - [ ] Native Dock auto-hide, favorite customization, and drag-reorder
 
 ## Phase 3 — System applications
 - [x] Include Files, Web, Terminal, Settings, and Text Editor
 - [ ] Custom Settings experience
-- [ ] Native dock preferences and auto-hide controls
+- [x] Native dock magnification preference
+- [ ] Native dock auto-hide and favorites controls
 - [ ] Software center/package-manager UX
 - [ ] System monitor
 - [ ] First-party Notes app (native, not web demo)
