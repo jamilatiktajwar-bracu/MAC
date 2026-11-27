@@ -21,3 +21,16 @@
 .terminal-prompt{display:flex;align-items:center}
 .file-item{border:0;color:#293149;font:inherit;cursor:pointer}
 .file-item:hover{outline:1px solid #c4cdec}
+
+/* v0.6 prototype refinements: keyboard focus, dock state, personalization */
+:root{--accent:#6686f6}
+.primary{background:var(--accent);color:#fff;border-color:transparent}
+.dock-app{position:relative}
+.dock-app.running::after{content:"";position:absolute;bottom:3px;left:50%;width:5px;height:5px;border-radius:50%;background:#fff;transform:translateX(-50%);box-shadow:0 0 5px #fff8}
+.launcher-app.selected{background:rgba(255,255,255,.18);outline:1px solid rgba(255,255,255,.22)}
+.accent-picker,.wallpaper-picker{display:flex;align-items:center;gap:7px}
+.accent-swatch{width:19px;height:19px;border:2px solid #fff;border-radius:50%;cursor:pointer;background:var(--swatch);box-shadow:0 0 0 1px #aeb7c8}
+.accent-swatch[data-accent="#6686f6"]{--swatch:#6686f6}.accent-swatch[data-accent="#df76ad"]{--swatch:#df76ad}.accent-swatch[data-accent="#56bf9c"]{--swatch:#56bf9c}.accent-swatch[data-accent="#f0a44b"]{--swatch:#f0a44b}
+.wallpaper-swatch{width:28px;height:20px;border:1px solid #fff8;border-radius:6px;cursor:pointer}
+.wallpaper-swatch.blue{background:linear-gradient(135deg,#172b54,#287ba0)}.wallpaper-swatch.violet{background:linear-gradient(135deg,#172b54,#8b4e9b)}.wallpaper-swatch.sunset{background:linear-gradient(135deg,#6a365f,#ef9869)}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
