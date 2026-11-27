@@ -2,7 +2,7 @@
 
 ## Current milestone: v0.5 — native shell architecture and validation
 
-The repository contains a browser-based UI prototype and an experimental GNOME Shell extension scaffold. It is not a bootable operating system or ISO.
+The repository contains a browser-based desktop UI prototype and an experimental GNOME Shell extension scaffold. It is not a bootable operating system or ISO.
 
 ### Browser prototype
 - From the repository root, run `python3 -m http.server 8000`.
