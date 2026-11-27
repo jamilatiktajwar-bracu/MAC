@@ -1,65 +1,60 @@
 # Bootable ISO build (experimental)
 
-This creates a Debian Stable live image with GNOME and the experimental MAC GNOME Shell extension installed. It is a Linux-based prototype, not a new kernel or independent distribution yet.
+This produces a Debian Stable live image with GNOME, MAC desktop defaults, a custom wallpaper, a minimal Plymouth theme, and the experimental MAC GNOME Shell extension. It is a Linux-based prototype, not a new kernel or independent distribution.
 
 ## Local build (Debian/Ubuntu)
-
-Install build dependencies:
 
 ```bash
 sudo apt update
 sudo apt install live-build debootstrap xorriso squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools
-```
-
-From the repository root:
-
-```bash
 sudo bash ./scripts/build-iso.sh
 ```
 
-The script produces `MAC-OS-amd64.iso`, a SHA-256 checksum file (`MAC-OS-amd64.iso.sha256`), and a build manifest (`MAC-OS-build-manifest.txt`) with the UTC build timestamp, source commit (when available), image size, and hash. It needs network access and several GB of disk space. Build output is not guaranteed to be identical byte-for-byte across runs because the Debian Stable package repositories change.
+The build produces `MAC-OS-amd64.iso`, a checksum file, and `MAC-OS-build-manifest.txt` (UTC timestamp, source commit, architecture, size, SHA-256). It requires network access and several GB of free space. Builds are not guaranteed byte-for-byte reproducible because Debian packages move.
 
-## GitHub Actions build
+## GitHub Actions
 
-Open the repository's Actions tab and run **Build MAC OS Live ISO** manually. The workflow also starts on relevant changes to the build config, script, shell extension, or workflow itself. On success, download the `MAC-OS-live-amd64` artifact from the run. It contains the ISO, checksum, and build manifest. The workflow summary also displays the build metadata. Artifacts expire after 7 days.
+The **Build MAC OS Live ISO** workflow triggers on relevant source changes and can be started manually from Actions. On success, download the `MAC-OS-live-amd64` artifact containing the ISO, checksum, and manifest. Artifacts expire after 7 days; the workflow summary includes metadata.
 
 ## Included environment
 
-- Debian Stable, amd64
-- GNOME desktop core and GNOME Shell
-- GNOME Files, Terminal, Settings, Text Editor
+- Debian Stable amd64 with GNOME Shell, session, GDM
+- Files, Epiphany Web, Terminal, Settings, Text Editor
 - NetworkManager
 - live-boot / live-config
-- MAC Shell extension files installed system-wide (disabled by default for safer first boot)
+- Inter and emoji fonts, Papirus icons, Plymouth
+- MAC GNOME Shell extension, configured to auto-enable through system dconf defaults
+- MAC dark appearance and custom SVG wallpaper defaults
+- Experimental MAC Plymouth theme files (boot splash still requires verification in the built image/initramfs)
 
-## First-boot testing
+## First boot in a VM
 
-Boot the ISO in a disposable VirtualBox or QEMU VM:
+Recommended disposable VM:
 - 2 CPUs, 4 GB RAM minimum (6 GB recommended)
-- 30 GB virtual disk (live session does not require installation)
-- EFI enabled or BIOS mode
-- Snapshot before changes
+- 30 GB disk (the live session itself does not require installation)
+- EFI or BIOS; test both when possible
+- Take a snapshot before any installation experiments
 
-After reaching GNOME, inspect extension state:
+Verify extension and dconf:
 
 ```bash
 gnome-extensions list
 gnome-extensions info mac-shell@macos-project
+dconf read /org/gnome/shell/enabled-extensions
 ```
 
-Enable it manually for testing:
+If the shell extension did not auto-load:
 
 ```bash
 gnome-extensions enable mac-shell@macos-project
 ```
 
-Log out and back in if GNOME requests it. On Wayland, do not restart GNOME Shell with Alt+F2, R.
+See [VM checklist](SHELL-VM-TEST.md). Build, boot, splash theme, wallpaper, and shell behavior are all still pending validation until tested on a real VM.
 
-See [shell VM validation checklist](SHELL-VM-TEST.md). This milestone builds an ISO; boot and extension compatibility must still be tested and documented separately.
+## Troubleshooting and safety
 
-## Troubleshooting
-
-- If build fails, inspect the complete live-build log in the workflow or local terminal output.
-- For missing ISO output, check files created by live-build in the repository root.
-- Ensure enough disk space and stable internet.
-- Do not install this image to real hardware until the installer, partitioning, data-loss safeguards, and recovery process exist.
+- Review full live-build and GitHub Actions logs.
+- Check the root directory for the ISO outputs if the expected file name is absent.
+- Make sure network and disk space are sufficient.
+- Inspect shell errors with `journalctl --user -b | grep -i -E 'gnome-shell|mac-shell'`.
+- Do not install on real hardware yet: the project has no installer, disk-partition flow, backup safeguard, or recovery plan.
