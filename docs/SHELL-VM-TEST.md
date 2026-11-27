@@ -72,6 +72,10 @@ rm -r ~/.local/share/gnome-shell/extensions/mac-shell@macos-project
 ```
 
 Keep GNOME's stock panel/compositor intact during this prototype stage. Do not install to real hardware; no installer, partition safeguards, or recovery tooling exists yet.
+## Native MAC preferences and Dock checks
+
+The live image includes libadwaita runtime packages for the MAC Desktop Settings preferences. Open it from the MAC panel menu or the application grid. Configure auto-hide and favorites, save, and confirm the Dock updates immediately. Confirm settings persist after logout/login.
+
 ## QEMU firmware tests
 
 Install QEMU and (for UEFI) OVMF:
