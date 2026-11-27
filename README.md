@@ -6,7 +6,7 @@ A macOS-inspired desktop project with original branding and implementation, init
 
 ## Current status
 
-Browser prototype v0.6, experimental GNOME Shell v0.6 features, and a Debian live-ISO build pipeline. The image build and shell must still pass CI and VM testing before we can claim a working bootable release.
+Browser prototype v0.7-dev, experimental GNOME Shell v0.7-dev features, and a Debian live-ISO build pipeline. The image build and shell must still pass CI and VM testing before we can claim a working bootable release.
 
 ## Browser prototype
 
@@ -16,11 +16,11 @@ Open `index.html` in a modern browser or run:
 python3 -m http.server 8000
 ```
 
-Then visit http://localhost:8000. The web demo includes boot/lock flow, menu bar, control center, notifications, desktop icons, launcher, dock, draggable demo windows, Settings, Notes, Files, Browser, Terminal, and About. Controls are simulated; they do not control real hardware. Window shortcuts: `Ctrl/⌘+W` closes the front window, `Ctrl/⌘+M` minimizes it, and `Ctrl/⌘+Alt+F` toggles maximize. Dock magnification can be enabled in Settings and is remembered locally. Reduced-motion preferences are respected for dock animation.
+Then visit http://localhost:8000. The web demo includes boot/lock flow, menu bar, control center, notifications, desktop icons, launcher, dock, draggable demo windows, Settings, Notes, Files, Browser, Terminal, and About. Dock magnification preference persists across reloads; window close/minimize/maximize shortcuts are available. Controls are simulated; they do not control real hardware. Window shortcuts: `Ctrl/⌘+W` closes the front window, `Ctrl/⌘+M` minimizes it, and `Ctrl/⌘+Alt+F` toggles maximize. Dock magnification can be enabled in Settings and is remembered locally. Reduced-motion preferences are respected for dock animation.
 
 ## Native experiment
 
-The initial native target is Debian Stable + GNOME/Wayland. MAC is currently an extension layered on GNOME—not a new kernel, compositor, or standalone OS.
+The initial native target is Debian 13 (Trixie) + GNOME/Wayland. MAC is currently an extension layered on GNOME—not a new kernel, compositor, or standalone OS. The native launcher adapts to smaller displays and monitor changes, with keyboard focus indicators.
 
 - [Visual design system](docs/DESIGN-SYSTEM.md)
 - [Architecture](docs/ARCHITECTURE.md)
