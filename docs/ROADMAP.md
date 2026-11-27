@@ -11,6 +11,8 @@
 - [x] Package GNOME desktop, network manager, and core apps
 - [x] Add build checksum and source manifest
 - [x] Add source consistency checks to CI
+- [x] Add standalone ISO checksum and El Torito boot-catalog verifier
+- [x] Add GNOME System Monitor, Calculator, Disk Utility, and extension preferences
 - [x] Add MAC dconf defaults, wallpaper, and boot-theme assets
 - [x] Add generated build hook for dconf compilation and Plymouth initramfs update
 - [ ] Complete successful CI ISO build
