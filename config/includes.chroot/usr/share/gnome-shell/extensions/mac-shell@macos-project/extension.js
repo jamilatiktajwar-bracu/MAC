@@ -23,6 +23,21 @@ export default class MacShellExtension extends Extension {
     Main.wm.addKeybinding('toggle-launcher', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.NORMAL, () => this._toggleLauncher());
     this._buildPanelMenu();
     this._buildDock();
+    this._favoritesSignal = this._settings.connect('changed::dock-favorites', () => this._rebuildDock());
+    this._autoHideSignal = this._settings.connect('changed::dock-auto-hide', () => this._applyDockAutoHide());
+    this._stageMotionSignal = global.stage.connect('motion-event', (_actor, event) => {
+      if (!this._dock || !this._settings?.get_boolean('dock-auto-hide')) return Clutter.EVENT_PROPAGATE;
+      const monitor = Main.layoutManager.primaryMonitor;
+      if (!monitor) return Clutter.EVENT_PROPAGATE;
+      const [, y] = event.get_coords();
+      const visible = y >= monitor.y + monitor.height - 108;
+      if (visible !== this._dockVisible) {
+        this._dockVisible = visible;
+        this._dock.set_reactive(visible);
+        this._dock.ease({ opacity: visible ? 255 : 0, duration: 180, mode: Clutter.AnimationMode.EASE_OUT_QUAD });
+      }
+      return Clutter.EVENT_PROPAGATE;
+    });
     this._monitorSignal = Main.layoutManager.connect('monitors-changed', () => {
       this._positionDock();
       this._positionLauncher();
@@ -49,6 +64,8 @@ export default class MacShellExtension extends Extension {
 
     this._button.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
     this._addAppItem('Open Files', 'org.gnome.Nautilus.desktop');
+    this._addFolderItem('Open Home Folder', GLib.get_home_dir());
+    this._addFolderItem('Open Downloads', GLib.build_filenamev([GLib.get_home_dir(), 'Downloads']));
     this._addAppItem('Open Web', 'org.gnome.Epiphany.desktop');
     this._addAppItem('Open Settings', 'org.gnome.Settings.desktop');
     this._addAppItem('Open Terminal', 'org.gnome.Terminal.desktop');
@@ -57,6 +74,9 @@ export default class MacShellExtension extends Extension {
     dockMagnification.connect('toggled', (_item, enabled) => this._settings.set_boolean('dock-magnification', enabled));
     this._button.menu.addMenuItem(dockMagnification);
     this._button.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+    const settingsItem = new PopupMenu.PopupMenuItem('MAC Desktop Settings…');
+    settingsItem.connect('activate', () => this.openPreferences());
+    this._button.menu.addMenuItem(settingsItem);
     const about = new PopupMenu.PopupMenuItem('About MAC OS');
     about.connect('activate', () => Main.notify('MAC OS', 'A Linux-based desktop prototype with its own MAC shell.'));
     this._button.menu.addMenuItem(about);
@@ -65,12 +85,38 @@ export default class MacShellExtension extends Extension {
 
   _buildDock() {
     this._dock = new St.BoxLayout({ style_class: 'mac-dock', reactive: true });
-    for (const [label, desktopId] of FAVORITES) this._addDockApp(label, desktopId);
+    const favorites = this._settings.get_strv('dock-favorites');
+    for (const desktopId of favorites) {
+      const app = Gio.DesktopAppInfo.new(desktopId);
+      const label = app?.get_name() ?? desktopId.replace(/\.desktop$/i, '');
+      this._addDockApp(label, desktopId);
+    }
     const divider = new St.Widget({ style_class: 'mac-dock-divider' });
     this._dock.add_child(divider);
     this._addDockLauncher();
     Main.layoutManager.addChrome(this._dock, { trackFullscreen: false, affectsStruts: false });
+    this._dockVisible = true;
     this._positionDock();
+    this._applyDockAutoHide();
+  }
+
+  _rebuildDock() {
+    if (this._dock) {
+      Main.layoutManager.removeChrome(this._dock);
+      this._dock.destroy();
+      this._dock = null;
+    }
+    this._buildDock();
+    this._refreshRunningIndicators();
+  }
+
+  _applyDockAutoHide() {
+    if (!this._dock) return;
+    if (!this._settings.get_boolean('dock-auto-hide')) {
+      this._dockVisible = true;
+      this._dock.set_reactive(true);
+      this._dock.set_opacity(255);
+    }
   }
 
   _addDockApp(label, desktopId) {
@@ -85,6 +131,7 @@ export default class MacShellExtension extends Extension {
       track_hover: true, child: content,
     });
     button.set_tooltip_text(app?.get_name() ?? label);
+    button.accessible_name = app?.get_name() ?? label;
     button._macDesktopId = desktopId;
     button._macIndicator = indicator;
     button.connect('clicked', () => this._launch(desktopId));
@@ -96,6 +143,7 @@ export default class MacShellExtension extends Extension {
     const icon = new St.Icon({ icon_name: 'view-app-grid-symbolic', icon_size: 28 });
     const button = new St.Button({ style_class: 'mac-dock-item mac-dock-launcher', can_focus: true, child: icon });
     button.set_tooltip_text('Applications');
+    button.accessible_name = 'Applications launcher';
     button.connect('clicked', () => this._toggleLauncher());
     this._wireDockMagnification(button);
     this._dock.add_child(button);
@@ -157,6 +205,15 @@ export default class MacShellExtension extends Extension {
       const key = event.get_key_symbol();
       if (key === Clutter.KEY_Down || key === Clutter.KEY_Up) {
         this._moveLauncherSelection(key === Clutter.KEY_Down ? 1 : -1);
+        return Clutter.EVENT_STOP;
+      }
+      if (key === Clutter.KEY_Home) {
+        this._moveLauncherSelection(-this._launcherSelection);
+        return Clutter.EVENT_STOP;
+      }
+      if (key === Clutter.KEY_End) {
+        const count = this._launcherList?.get_children().length ?? 0;
+        this._moveLauncherSelection(count - 1 - this._launcherSelection);
         return Clutter.EVENT_STOP;
       }
       if (key === Clutter.KEY_Return || key === Clutter.KEY_KP_Enter) {
@@ -245,6 +302,16 @@ export default class MacShellExtension extends Extension {
     this._button.menu.addMenuItem(item);
   }
 
+  _addFolderItem(label, path) {
+    const item = new PopupMenu.PopupMenuItem(label);
+    item.connect('activate', () => {
+      const app = Gio.DesktopAppInfo.new('org.gnome.Nautilus.desktop');
+      if (app) app.launch([Gio.File.new_for_path(path)], null);
+      else Main.notify('MAC OS', 'Files application is unavailable.');
+    });
+    this._button.menu.addMenuItem(item);
+  }
+
   _launch(desktopId) {
     const app = Gio.DesktopAppInfo.new(desktopId);
     if (app) app.launch([], null);
@@ -253,6 +320,12 @@ export default class MacShellExtension extends Extension {
 
   disable() {
     Main.wm.removeKeybinding('toggle-launcher');
+    if (this._favoritesSignal) this._settings.disconnect(this._favoritesSignal);
+    if (this._autoHideSignal) this._settings.disconnect(this._autoHideSignal);
+    this._favoritesSignal = null;
+    this._autoHideSignal = null;
+    if (this._stageMotionSignal) global.stage.disconnect(this._stageMotionSignal);
+    this._stageMotionSignal = null;
     this._settings = null;
     if (this._runningAppsTimer) GLib.source_remove(this._runningAppsTimer);
     this._runningAppsTimer = null;
