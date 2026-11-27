@@ -17,11 +17,11 @@ From the repository root:
 sudo bash ./scripts/build-iso.sh
 ```
 
-The script produces `MAC-OS-amd64.iso` and a SHA-256 checksum. It needs network access and several GB of disk space. Build output is not guaranteed to be identical byte-for-byte across runs because the Debian Stable package repositories change.
+The script produces `MAC-OS-amd64.iso`, a SHA-256 checksum file (`MAC-OS-amd64.iso.sha256`), and a build manifest (`MAC-OS-build-manifest.txt`) with the UTC build timestamp, source commit (when available), image size, and hash. It needs network access and several GB of disk space. Build output is not guaranteed to be identical byte-for-byte across runs because the Debian Stable package repositories change.
 
 ## GitHub Actions build
 
-Open the repository's Actions tab and run **Build MAC OS Live ISO** manually. The workflow also starts on relevant changes to the build config, script, shell extension, or workflow itself. On success, download the `MAC-OS-live-amd64` artifact from the run. Artifacts expire after 7 days.
+Open the repository's Actions tab and run **Build MAC OS Live ISO** manually. The workflow also starts on relevant changes to the build config, script, shell extension, or workflow itself. On success, download the `MAC-OS-live-amd64` artifact from the run. It contains the ISO, checksum, and build manifest. The workflow summary also displays the build metadata. Artifacts expire after 7 days.
 
 ## Included environment
 
