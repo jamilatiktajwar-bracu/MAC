@@ -1,8 +1,8 @@
 # MAC OS Development Guide
 
-## Current milestone: v0.6 — bootable ISO pipeline (validation pending)
+## Current milestone: v0.8-dev — native desktop settings and boot validation
 
-The repository has a browser UI prototype, an experimental GNOME extension, and a live-build configuration with GitHub Actions automation for a Debian Stable GNOME live ISO. The ISO build and VM boot remain unverified.
+The repository has a browser UI prototype, an experimental GNOME extension, and a live-build configuration with GitHub Actions automation for a Debian 13 (Trixie) GNOME live ISO. Native MAC Desktop Settings, dock auto-hide, favorites, and Files shortcuts are implemented; ISO build and VM boot remain unverified. The ISO build and VM boot remain unverified.
 
 ### Browser prototype
 - From the repository root, run `python3 -m http.server 8000`.
@@ -27,6 +27,9 @@ The repository has a browser UI prototype, an experimental GNOME extension, and 
 See [Bootable ISO build guide](BOOTABLE-ISO.md). Trigger the GitHub Actions workflow manually to build and download the ISO artifact.
 
 ### Native extension test
+
+The native preferences use libadwaita. The image package list explicitly includes `gir1.2-adw-1` and `libadwaita-1-0`. Run `bash scripts/validate-native.sh` to check JavaScript syntax, strict GSettings schema compilation, desktop launcher metadata, and equality between source and packaged extension files.
+
 See [Shell VM test plan](SHELL-VM-TEST.md). Only test in a disposable Debian GNOME VM; the extension is experimental and not yet validated against a real GNOME Shell session.
 
 ### Milestones
