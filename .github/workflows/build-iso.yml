@@ -27,6 +27,7 @@ jobs:
       - name: Validate source files
         run: |
           bash -n scripts/build-iso.sh
+          if grep -nF '\\n' scripts/build-iso.sh; then echo 'Unexpected literal backslash-n in build script'; exit 1; fi
           node --input-type=module --check < shell/gnome-extension/extension.js
           node --check app.js
           python3 -m json.tool shell/gnome-extension/metadata.json >/dev/null
