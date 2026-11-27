@@ -7,6 +7,7 @@ on:
       - "config/**"
       - "scripts/build-iso.sh"
       - "scripts/run-vm.sh"
+      - "scripts/validate-native.sh"
       - "shell/gnome-extension/**"
       - ".github/workflows/build-iso.yml"
 
@@ -30,6 +31,7 @@ jobs:
           bash -n scripts/build-iso.sh
           bash -n scripts/verify-iso.sh
           bash -n scripts/run-vm.sh
+          bash scripts/validate-native.sh
           if grep -nF '\n' scripts/build-iso.sh; then echo 'Unexpected literal backslash-n in build script'; exit 1; fi
           node --input-type=module --check < shell/gnome-extension/extension.js
           node --input-type=module --check < shell/gnome-extension/prefs.js
