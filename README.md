@@ -16,7 +16,7 @@ Open `index.html` in a modern browser or run:
 python3 -m http.server 8000
 ```
 
-Then visit http://localhost:8000. The web demo includes boot/lock flow, menu bar, control center, notifications, desktop icons, launcher, dock, draggable demo windows, Settings, Notes, Files, Browser, Terminal, and About. Controls are simulated; they do not control real hardware.
+Then visit http://localhost:8000. The web demo includes boot/lock flow, menu bar, control center, notifications, desktop icons, launcher, dock, draggable demo windows, Settings, Notes, Files, Browser, Terminal, and About. Controls are simulated; they do not control real hardware. Window shortcuts: `Ctrl/⌘+W` closes the front window, `Ctrl/⌘+M` minimizes it, and `Ctrl/⌘+Alt+F` toggles maximize. Dock magnification can be enabled in Settings and is remembered locally. Reduced-motion preferences are respected for dock animation.
 
 ## Native experiment
 
