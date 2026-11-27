@@ -2,12 +2,13 @@
 
 ## Phase 0 — Project foundation
 - [x] Initialize documentation
-- [x] Choose Debian Stable + GNOME/Wayland as first base
+- [x] Choose Debian 13 (Trixie) + GNOME/Wayland as first base
 - [ ] Set name, logo, visual design system, and license
 - [x] Establish initial repository and CI workflow
 
 ## Phase 1 — Bootable foundation
-- [x] Configure Debian live-build and CI ISO workflow
+- [x] Configure Debian 13 (Trixie) live-build and CI ISO workflow
+- [x] Configure explicit trixie-security source for build and live session
 - [x] Package GNOME desktop, network manager, and core apps
 - [x] Add build checksum and source manifest
 - [x] Add source consistency checks to CI
