@@ -10,7 +10,7 @@ const appDefs={
  settings:{title:'Settings',body:`<div class="settings-layout"><aside class="settings-sidebar"><button class="active">Appearance</button><button>Desktop</button><button>Sound</button><button>Network</button><button>About</button></aside><div><h2>Appearance</h2><p style="color:#687187">Personalize your MAC desktop</p><div class="setting-row"><div><b>Dark appearance</b><div style="font-size:11px;color:#788196">Use a darker system theme</div></div><button class="switch" aria-label="Dark appearance"></button></div><div class="setting-row"><div><b>Dock magnification</b><div style="font-size:11px;color:#788196">Enlarge icons on hover</div></div><button class="switch on" aria-label="Dock magnification"></button></div><div class="setting-row"><div><b>Desktop widgets</b><div style="font-size:11px;color:#788196">Show desktop widgets</div></div><button class="switch" aria-label="Desktop widgets"></button></div><div class="setting-row"><div><b>Accent color</b></div><div style="display:flex;gap:7px"><i style="background:#6686f6;width:18px;height:18px;border-radius:50%"></i><i style="background:#df76ad;width:18px;height:18px;border-radius:50%"></i><i style="background:#56bf9c;width:18px;height:18px;border-radius:50%"></i></div></div></div></div>`},
  terminal:{title:'Terminal',body:`<div class="terminal"><div>MAC OS Prototype Terminal</div><div>Welcome. Commands are simulated in this preview.</div><div>$ <input placeholder="try: help" /></div></div>`},
  notes:{title:'Notes',body:`<div class="app-content"><h2>Quick Notes</h2><textarea class="notes-area" placeholder="Start typing…"></textarea></div>`},
- about:{title:'About MAC OS',body:`<div class="app-content" style="text-align:center;padding-top:30px"><div style="font-size:56px">⌘</div><h2>MAC OS</h2><p>Desktop prototype 0.1</p><p style="color:#687187">A personal Linux-based operating system concept, with its own design language.</p></div>`}
+ about:{title:'About MAC OS',body:`<div class="app-content" style="text-align:center;padding-top:30px"><div style="font-size:56px">⌘</div><h2>MAC OS</h2><p>Desktop prototype 0.3</p><p style="color:#687187">A personal Linux-based operating system concept, with its own design language.</p></div>`}
 };
 function showToast(text){toastEl.textContent=text;toastEl.classList.add('show');setTimeout(()=>toastEl.classList.remove('show'),1900)}
 function openApp(id){const def=appDefs[id];if(!def)return;closeLauncher();let existing=document.querySelector('.app-window[data-app="'+id+'"]');if(existing){existing.style.zIndex=++z;existing.style.display='block';return;}
@@ -32,11 +32,11 @@ function toggleLauncher(){launcher.classList.toggle('show');backdrop.classList.t
 function closeLauncher(){launcher.classList.remove('show');backdrop.classList.remove('show')}
 document.getElementById('launcherToggle').onclick=toggleLauncher;backdrop.onclick=closeLauncher;
 search.addEventListener('input',()=>filterApps(search.value));
-function filterApps(q){document.querySelectorAll('.launcher-app').forEach(btn=>btn.style.display=btn.textContent.toLowerCase().includes(q.toLowerCase())?'grid':'none')}
+function filterApps(q){const apps=[...document.querySelectorAll('.launcher-app')];let visible=0;apps.forEach(btn=>{const match=btn.textContent.toLowerCase().includes(q.trim().toLowerCase());btn.style.display=match?'grid':'none';if(match)visible++});let empty=document.getElementById('launcherEmpty');if(!empty){empty=document.createElement('p');empty.id='launcherEmpty';empty.textContent='No apps found';empty.style.cssText='color:#cbd0df;text-align:center;font-size:12px;padding:12px 0;display:none';document.getElementById('launcherGrid').after(empty)}empty.style.display=visible?'none':'block'}
 document.getElementById('controlCenter').onclick=()=>showToast('Control Center · Wi-Fi · Sound · Brightness');
 document.getElementById('systemMenu').onclick=()=>showToast('MAC system menu · About · Settings · Restart');
 document.querySelectorAll('.menu-label').forEach(b=>b.onclick=()=>showToast(b.dataset.menu+' menu (prototype)'));
-document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key===' '){e.preventDefault();toggleLauncher()}if(e.key==='Escape')closeLauncher()});
+document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key===' '){e.preventDefault();toggleLauncher()}if(e.key==='Escape'){closeLauncher();controlPanel.classList.remove('show');notificationPanel.classList.remove('show')}});
 function updateClock(){const d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}
 updateClock();setInterval(updateClock,30000);
 
@@ -56,3 +56,6 @@ document.getElementById('volume').oninput=e=>showToast('Volume '+e.target.value+
 const originalClock=updateClock;
 function updateEnhancedClock(){const d=new Date();const t=d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});document.getElementById('clock').textContent=t;document.getElementById('lockClock').textContent=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});document.getElementById('lockDate').textContent=d.toLocaleDateString([], {weekday:'long',month:'long',day:'numeric'});}
 updateEnhancedClock();setInterval(updateEnhancedClock,30000);
+
+/* v0.3 usability: click outside panels to dismiss */
+document.addEventListener('click',e=>{if(!controlPanel.contains(e.target)&&e.target!==document.getElementById('controlCenter'))controlPanel.classList.remove('show');if(!notificationPanel.contains(e.target)&&e.target!==document.getElementById('clock'))notificationPanel.classList.remove('show')});
