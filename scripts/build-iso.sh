@@ -43,12 +43,14 @@ trap cleanup_hook EXIT
 
 lb config \
   --mode debian \
-  --distribution stable \
+  --distribution trixie \
   --mirror-bootstrap "https://deb.debian.org/debian" \
   --mirror-chroot "https://deb.debian.org/debian" \
   --mirror-binary "https://deb.debian.org/debian" \
   --architectures amd64 \
   --archive-areas "main contrib non-free non-free-firmware" \
+  --security false \
+  --updates true \
   --binary-images iso-hybrid \
   --bootloader grub2 \
   --debian-installer false \
