@@ -32,8 +32,11 @@
 - [x] Native launcher adapts to smaller displays and monitor changes
 - [x] Native dock and launcher keyboard-focus styling
 - [ ] Theme, icon, animation, and full accessibility pass
-- [x] Browser prototype window shortcuts (close, minimize, maximize)\n- [x] Persistent Dock magnification preference in browser prototype\n- [ ] Native shell keyboard shortcuts and focus navigation
-- [x] Browser prototype Dock magnification control\n- [ ] Native Dock auto-hide, favorite customization, and drag-reorder
+- [x] Browser prototype window shortcuts (close, minimize, maximize)
+- [x] Persistent Dock magnification preference in browser prototype
+- [ ] Native shell keyboard shortcuts and focus navigation
+- [x] Browser prototype Dock magnification control
+- [ ] Native Dock auto-hide, favorite customization, and drag-reorder
 
 ## Phase 3 — System applications
 - [x] Include Files, Web, Terminal, Settings, and Text Editor
@@ -68,4 +71,6 @@ Use an established Linux kernel and distribution for the first usable release. B
 - [x] v0.5.1 — MAC menu, dock and launcher scaffold
 - [x] v0.5.2 — icon dock, running indicators and keyboard controls
 - [x] v0.6-dev — branding assets, live-session defaults, native dock polish and CI source checks
-- [ ] v0.6 — successful ISO build and VM smoke test\n- [x] v0.7-dev — browser window shortcuts, persistent Dock magnification, reduced-motion polish\n- [ ] v0.7 — usability, accessibility, and native-shell integration validation
+- [ ] v0.6 — successful ISO build and VM smoke test
+- [x] v0.7-dev — browser window shortcuts, persistent Dock magnification, reduced-motion polish
+- [ ] v0.7 — usability, accessibility, and native-shell integration validation
