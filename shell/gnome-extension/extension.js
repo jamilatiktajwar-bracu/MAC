@@ -23,7 +23,10 @@ export default class MacShellExtension extends Extension {
     Main.wm.addKeybinding('toggle-launcher', this._settings, Meta.KeyBindingFlags.NONE, Shell.ActionMode.NORMAL, () => this._toggleLauncher());
     this._buildPanelMenu();
     this._buildDock();
-    this._monitorSignal = Main.layoutManager.connect('monitors-changed', () => this._positionDock());
+    this._monitorSignal = Main.layoutManager.connect('monitors-changed', () => {
+      this._positionDock();
+      this._positionLauncher();
+    });
     this._runningAppsTimer = GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 3, () => {
       this._refreshRunningIndicators();
       return GLib.SOURCE_CONTINUE;
@@ -96,7 +99,7 @@ export default class MacShellExtension extends Extension {
     if (!this._dock) return;
     const monitor = Main.layoutManager.primaryMonitor;
     if (!monitor) return;
-    const width = Math.min(monitor.width - 32, 560);
+    const width = Math.max(240, Math.min(monitor.width - 32, 560));
     this._dock.set_width(width);
     this._dock.set_x(monitor.x + Math.floor((monitor.width - width) / 2));
     this._dock.set_y(monitor.y + monitor.height - 78);
@@ -118,7 +121,9 @@ export default class MacShellExtension extends Extension {
       this._closeLauncher();
       return;
     }
-    this._launcher = new St.BoxLayout({ vertical: true, style_class: 'mac-launcher', width: 440 });
+    const monitor = Main.layoutManager.primaryMonitor;
+    const launcherWidth = Math.max(280, Math.min(440, (monitor?.width ?? 800) - 32));
+    this._launcher = new St.BoxLayout({ vertical: true, style_class: 'mac-launcher', width: launcherWidth });
     this._launcherEntry = new St.Entry({
       style_class: 'mac-launcher-search', hint_text: 'Search applications…',
       can_focus: true, track_hover: true,
@@ -154,8 +159,12 @@ export default class MacShellExtension extends Extension {
     if (!this._launcher) return;
     const monitor = Main.layoutManager.primaryMonitor;
     if (!monitor) return;
-    this._launcher.set_x(monitor.x + Math.floor((monitor.width - 440) / 2));
-    this._launcher.set_y(monitor.y + Math.floor((monitor.height - 440) / 2));
+    const width = Math.max(280, Math.min(440, monitor.width - 32));
+    const height = Math.max(240, Math.min(440, monitor.height - 64));
+    this._launcher.set_width(width);
+    this._launcher.set_height(height);
+    this._launcher.set_x(monitor.x + Math.floor((monitor.width - width) / 2));
+    this._launcher.set_y(monitor.y + Math.floor((monitor.height - height) / 2));
   }
 
   _populateLauncher(query) {
