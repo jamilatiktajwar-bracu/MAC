@@ -6,6 +6,7 @@ on:
     paths:
       - "config/**"
       - "scripts/build-iso.sh"
+      - "scripts/run-vm.sh"
       - "shell/gnome-extension/**"
       - ".github/workflows/build-iso.yml"
 
@@ -34,12 +35,13 @@ jobs:
           node --input-type=module --check < shell/gnome-extension/prefs.js
           node --check app.js
           python3 -m json.tool shell/gnome-extension/metadata.json >/dev/null
+          python3 -c 'import configparser; p=configparser.ConfigParser(interpolation=None); p.read("config/includes.chroot/usr/share/applications/mac-desktop-settings.desktop"); assert p.get("Desktop Entry", "Exec").startswith("gnome-extensions prefs ")'
           cmp shell/gnome-extension/extension.js config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/extension.js
           cmp shell/gnome-extension/prefs.js config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/prefs.js
           cmp shell/gnome-extension/stylesheet.css config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/stylesheet.css
           cmp shell/gnome-extension/metadata.json config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/metadata.json
           cmp shell/gnome-extension/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml config/includes.chroot/usr/share/gnome-shell/extensions/mac-shell@macos-project/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml
-          python3 -c 'import xml.etree.ElementTree as ET; ET.parse("config/includes.chroot/usr/share/backgrounds/mac/mac-wallpaper.svg"); ET.parse("shell/gnome-extension/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml")'
+          python3 -c 'import xml.etree.ElementTree as ET; ET.parse("config/includes.chroot/usr/share/backgrounds/mac/mac-wallpaper.svg"); ET.parse("config/includes.chroot/usr/share/icons/hicolor/scalable/apps/mac-desktop-settings.svg"); ET.parse("shell/gnome-extension/schemas/org.gnome.shell.extensions.mac-shell.gschema.xml")'
 
       - name: Install live-build tools
         run: |
