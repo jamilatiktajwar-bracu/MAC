@@ -21,6 +21,21 @@
 }
 .mac-dock-item:hover {
   background-color: rgba(255, 255, 255, 0.14);
+  transform: scale(1.06);
+}
+.mac-dock-content {
+  spacing: 4px;
+  min-width: 40px;
+  align-items: center;
+}
+.mac-dock-indicator {
+  width: 4px;
+  height: 4px;
+  border-radius: 4px;
+  background-color: transparent;
+}
+.mac-dock-indicator-running {
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .mac-launcher {
@@ -41,8 +56,13 @@
   padding: 8px 10px;
   color: white;
 }
-.mac-launcher-row:hover {
-  background-color: rgba(255, 255, 255, 0.12);
+.mac-launcher-row:hover,
+.mac-launcher-row-selected {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+.mac-launcher-row-content {
+  spacing: 10px;
+  padding: 2px;
 }
 .mac-launcher-empty {
   padding: 14px;
