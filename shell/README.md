@@ -8,6 +8,10 @@ Experimental GNOME Shell extension. It currently provides:
 
 This is a UI experiment, not a complete desktop replacement. Favorites are currently hard-coded and the dock does not auto-hide. The scaffold has not been VM-tested; GNOME Shell APIs and app IDs can vary.
 
+## Included in the MAC live ISO
+
+The bootable-image pipeline installs the extension system-wide under `/usr/share/gnome-shell/extensions/mac-shell@macos-project`. It stays disabled by default; see [ISO build guide](../../docs/BOOTABLE-ISO.md) and enable it manually in a disposable VM after boot.
+
 ## Install in a disposable Debian GNOME VM
 
 From the repository root:
