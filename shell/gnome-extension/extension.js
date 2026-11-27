@@ -90,6 +90,16 @@ export default class MacShellExtension extends Extension {
     this._dock.set_y(global.stage.height - 76);
   }
 
+  _refreshRunningIndicators() {
+    if (!this._dock) return;
+    const appSystem = Shell.AppSystem.get_default();
+    for (const button of this._dock.get_children()) {
+      const app = appSystem.lookup_app(button._macDesktopId);
+      const running = app?.get_state() === Shell.AppState.RUNNING;
+      button._macIndicator?.set_style_class_name(running ? 'mac-dock-indicator mac-dock-indicator-running' : 'mac-dock-indicator');
+    }
+  }
+
   _toggleLauncher() {
     if (this._launcher) {
       this._launcher.destroy();
@@ -160,8 +170,8 @@ export default class MacShellExtension extends Extension {
     }
 
     for (const [index, app] of matches.entries()) {
-      const icon = app instanceof Gio.DesktopAppInfo ? app.get_icon() : null;
-      const iconActor = new St.Icon({ gicon: icon, icon_size: 24, style_class: 'mac-launcher-app-icon' });
+      const icon = app.get_icon();
+      const iconActor = new St.Icon({ gicon: icon ?? null, icon_name: icon ? undefined : 'application-x-executable', icon_size: 24, style_class: 'mac-launcher-app-icon' });
       const rowContent = new St.BoxLayout({ style_class: 'mac-launcher-row-content' });
       rowContent.add_child(iconActor);
       rowContent.add_child(new St.Label({ text: app.get_name(), x_align: Clutter.ActorAlign.START }));
