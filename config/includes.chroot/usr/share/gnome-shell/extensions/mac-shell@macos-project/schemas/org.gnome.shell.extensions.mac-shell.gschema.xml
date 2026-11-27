@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
   <schema id="org.gnome.shell.extensions.mac-shell" path="/org/gnome/shell/extensions/mac-shell/">
+    <key name="dock-magnification" type="b">
+      <default>true</default>
+      <summary>Enable dock icon magnification</summary>
+      <description>Enlarge native dock icons while the pointer hovers over them.</description>
+    </key>
     <key name="toggle-launcher" type="as">
       <default>['&lt;Super&gt;k']</default>
       <summary>Toggle MAC application launcher</summary>
