@@ -21,7 +21,7 @@
 ## Phase 2 — Desktop experience
 - [x] MAC top-panel menu
 - [x] Dock with app shortcuts and running indicators
-- [x] App overview/search launcher with keyboard controls
+- [x] App overview/search launcher with keyboard controls and Super+K hotkey
 - [x] Dock placement follows primary-monitor changes
 - [x] Original wallpaper and dark appearance defaults
 - [ ] Validate menu, dock, launcher, and GNOME integration in VM
