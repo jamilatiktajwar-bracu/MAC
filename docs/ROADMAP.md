@@ -49,5 +49,6 @@ Use an established Linux kernel and base distribution for the first usable relea
 - [x] v0.3 — launcher search and quick-panel dismissal polish
 - [x] v0.4 — local Notes autosave, persistent dark mode preference, clickable folder demo, simulated terminal commands
 - [x] v0.5 — Debian Stable + GNOME/Wayland architecture decision and reversible extension scaffold
-- [ ] v0.5 — VM validation, custom panel, dock/launcher prototype
+- [x] v0.5.1 — experimental panel menu, text dock, searchable launcher scaffold (VM testing pending)
+- [ ] v0.5.2 — VM validation, dock polish, app icons and running indicators
 - [ ] v0.6 — reproducible bootable image build and VM testing
