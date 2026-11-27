@@ -6,7 +6,7 @@ A personal, macOS-inspired operating system project. This project aims to build 
 
 ## Current status
 
-**Browser prototype v0.4** plus an **experimental native-shell scaffold v0.5**. It is not a bootable operating system yet. The GNOME extension has not yet been tested in a VM.
+**Browser prototype v0.4** plus an **experimental native-shell prototype v0.5.1** featuring a panel menu, text dock, and searchable app-launcher overlay. It is not a bootable operating system yet. The GNOME extension has not yet been tested in a VM.
 
 ## Preview the desktop prototype
 
@@ -34,7 +34,7 @@ Then visit http://localhost:8000.
 
 ## Native shell experiment
 
-The first native prototype targets **Debian Stable + GNOME Shell (Wayland)**. The MAC desktop layer is currently a reversible GNOME Shell extension scaffold that adds a `⌘ MAC` panel menu with Overview, Settings, and Terminal shortcuts. It does not replace GNOME's panel, compositor, or window manager.
+The first native prototype targets **Debian Stable + GNOME Shell (Wayland)**. The MAC desktop layer is currently a reversible GNOME Shell extension scaffold that adds a `⌘ MAC` panel menu, a simple bottom dock, and a searchable installed-app launcher overlay. It does not replace GNOME's panel, compositor, or window manager.
 
 - [Architecture decision](docs/ARCHITECTURE.md)
 - [Shell scaffold instructions](shell/README.md)
