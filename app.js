@@ -39,3 +39,20 @@ document.querySelectorAll('.menu-label').forEach(b=>b.onclick=()=>showToast(b.da
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key===' '){e.preventDefault();toggleLauncher()}if(e.key==='Escape')closeLauncher()});
 function updateClock(){const d=new Date();document.getElementById('clock').textContent=d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}
 updateClock();setInterval(updateClock,30000);
+
+/* v0.2 feature wiring */
+const bootOverlay=document.getElementById('bootScreen'),lockOverlay=document.getElementById('lockScreen');
+setTimeout(()=>{bootOverlay.classList.add('done');lockOverlay.classList.add('show')},1700);
+document.getElementById('unlockButton').onclick=()=>lockOverlay.classList.remove('show');
+lockOverlay.addEventListener('click',e=>{if(e.target===lockOverlay)lockOverlay.classList.remove('show')});
+const controlPanel=document.getElementById('controlPanel'),notificationPanel=document.getElementById('notificationPanel');
+document.getElementById('controlCenter').onclick=()=>{controlPanel.classList.toggle('show');notificationPanel.classList.remove('show')};
+document.getElementById('clock').onclick=()=>{notificationPanel.classList.toggle('show');controlPanel.classList.remove('show')};
+document.getElementById('clearNotifications').onclick=()=>{notificationPanel.querySelector('.notification-card')?.remove();showToast('Notifications cleared')};
+['wifiTile','focusTile','bluetoothTile'].forEach(id=>document.getElementById(id).onclick=e=>e.currentTarget.classList.toggle('active'));
+document.getElementById('darkTile').onclick=()=>{document.body.classList.toggle('dark-ui');showToast('Appearance toggled')};
+document.getElementById('brightness').oninput=e=>document.querySelector('.desktop').style.filter='brightness('+e.target.value/100+')';
+document.getElementById('volume').oninput=e=>showToast('Volume '+e.target.value+'%');
+const originalClock=updateClock;
+function updateEnhancedClock(){const d=new Date();const t=d.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});document.getElementById('clock').textContent=t;document.getElementById('lockClock').textContent=d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});document.getElementById('lockDate').textContent=d.toLocaleDateString([], {weekday:'long',month:'long',day:'numeric'});}
+updateEnhancedClock();setInterval(updateEnhancedClock,30000);
