@@ -25,7 +25,13 @@ If it fails to load, log out and back in. On Wayland, do not use Alt+F2 then `r`
 - [ ] Extension listed in GNOME Extensions / `gnome-extensions list`
 - [ ] Enable succeeds
 - [ ] MAC indicator appears on top panel
-- [ ] Menu opens and shows Overview, Settings, Terminal entries
+- [ ] MAC panel menu opens and shows Overview, App Launcher, Settings, Terminal entries
+- [ ] Dock appears centered along bottom of screen
+- [ ] Dock shortcut launches the matching app when installed
+- [ ] App Launcher overlay opens from panel menu
+- [ ] Typing filters installed app list; no-match message appears
+- [ ] Clicking a launcher result launches it and dismisses overlay
+- [ ] Launcher and dock disappear cleanly when extension is disabled
 - [ ] Overview menu item toggles GNOME Overview
 - [ ] Settings shortcut launches GNOME Settings if installed
 - [ ] Terminal shortcut launches GNOME Terminal if installed
