@@ -120,6 +120,8 @@ Suggested diagnostics:
 
 ```bash
 nmcli device status
+apt-cache policy
+apt-get update
 wpctl status
 pactl info
 loginctl session-status
