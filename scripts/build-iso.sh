@@ -12,6 +12,10 @@ if ! command -v lb >/dev/null 2>&1; then
   echo "live-build is missing. Install the Debian 13 live-build package and its GRUB/ISO build dependencies." >&2
   exit 1
 fi
+if [[ ! -r /usr/lib/ISOLINUX/isolinux.bin ]]; then
+  echo "ISOLINUX BIOS boot image is missing. Install the Debian isolinux package on the build host." >&2
+  exit 1
+fi
 if ! lb config --help 2>&1 | grep -q -- '--bootloaders'; then
   echo "This build requires Debian Trixie live-build with the --bootloaders option (Syslinux BIOS + GRUB EFI)." >&2
   exit 1
