@@ -1,6 +1,6 @@
 # Bootable ISO build (experimental)
 
-The build script runs with Debian 13 (Trixie) `live-build` from the matching Debian environment and uses Debian Trixie mirrors (not the Ubuntu host's default apt mirror). It pins the official `trixie-security` and `trixie-updates` suites explicitly through `config/archives/mac-security.list.{chroot,binary}` and `config/archives/mac-updates.list.{chroot,binary}`. The `.chroot` files supply repositories during image construction; the matching `.binary` files configure APT in the live session. `--security false` disables live-build's own automatically generated security entry so that the explicit, current suite name is used instead. APT signature verification is explicitly enabled with `--apt-secure true`. CI checks the exact repository lines and confirms that build/live entries match. Rebuild from current Trixie package metadata before testing or distributing an image. This produces a Debian 13 (Trixie) live image with GNOME, MAC desktop defaults, a custom wallpaper, a minimal Plymouth theme, and the experimental MAC GNOME Shell extension. It is a Linux-based prototype, not a new kernel or independent distribution.
+The build script runs with Debian 13 (Trixie) `live-build` from the matching Debian environment and uses Debian Trixie mirrors (not the Ubuntu host's default apt mirror). It pins the official `trixie-security` suite explicitly through `config/archives/mac-security.list.chroot` and `config/archives/mac-security.list.binary`. The `.chroot` file supplies the security repository during image construction; the matching `.binary` file configures APT in the live session. `--security false` disables live-build's automatically generated security entry so the explicit current suite name is used instead. Trixie's `trixie-updates` index is supplied by live-build's normal Trixie configuration (the CI build log has fetched that suite). APT signature verification is explicitly enabled with `--apt-secure true`. CI checks the exact security repository line and confirms the build/live entries match. Rebuild from current Trixie package metadata before testing or distributing an image. This produces a Debian 13 (Trixie) live image with GNOME, MAC desktop defaults, a custom wallpaper, a minimal Plymouth theme, and the experimental MAC GNOME Shell extension. It is a Linux-based prototype, not a new kernel or independent distribution.
 
 ## Local build (Debian 13 Trixie)
 
@@ -24,7 +24,7 @@ The **Build MAC OS Live ISO** workflow triggers on relevant source changes and c
 - Files, Epiphany Web, Terminal, Settings, Text Editor
 - GNOME Extension Preferences, System Monitor, Calculator, Disk Utility
 - NetworkManager
-- Official Debian `trixie-security` and `trixie-updates` APT sources for both build-time package resolution and the live session (signature verification enabled)
+- Official Debian `trixie-security` APT source configured explicitly for build and live session; Debian Trixie `trixie-updates` is provided by live-build; APT signature verification is enabled
 - live-boot / live-config
 - Inter and emoji fonts, Papirus icons, Plymouth
 - MAC GNOME Shell extension, configured to auto-enable through system dconf defaults
