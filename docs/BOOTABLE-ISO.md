@@ -4,15 +4,15 @@ The build script runs with Debian 13 (Trixie) `live-build` from the matching Deb
 
 ## Local build (Debian 13 Trixie)
 
-Use a Debian 13 (Trixie) host or disposable container. The selected `live-build` package must support the `--bootloaders` option so GRUB BIOS and GRUB EFI can be included together.
+Use a Debian 13 (Trixie) host or disposable container. The selected `live-build` package must support `--bootloaders` so Syslinux BIOS and GRUB EFI can be included together. The build intentionally uses the matching Trixie host tools (`--build-with-chroot false`) for the binary stage.
 
 ```bash
 sudo apt update
-sudo apt install live-build debootstrap debian-archive-keyring xorriso genisoimage squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools
+sudo apt install live-build debootstrap debian-archive-keyring xorriso genisoimage squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools syslinux-utils
 sudo bash ./scripts/build-iso.sh
 ```
 
-The build produces `MAC-OS-amd64.iso`, a checksum file, and `MAC-OS-build-manifest.txt`. It uses an ISO 9660 optical-media image with separate GRUB PC (legacy BIOS) and GRUB EFI (UEFI) boot entries. It is not a USB-hybrid image yet; USB-hybrid output is a separate milestone. The workflow independently re-checks the SHA-256 and El Torito boot catalog with `scripts/verify-iso.sh` before uploading the artifact (UTC timestamp, source commit, architecture, size, SHA-256). It requires network access and several GB of free space. Builds are not guaranteed byte-for-byte reproducible because Debian packages move.
+The build produces `MAC-OS-amd64.iso`, a checksum file, and `MAC-OS-build-manifest.txt`. It uses a hybrid ISO with Syslinux/ISOLINUX for legacy BIOS and GRUB EFI for UEFI, so the same image is intended for optical media and USB block-device boot. The host build tools run inside a Debian Trixie container matching the target distribution. The workflow independently re-checks the SHA-256 and El Torito boot catalog with `scripts/verify-iso.sh` before uploading the artifact (UTC timestamp, source commit, architecture, size, SHA-256). It requires network access and several GB of free space. Builds are not guaranteed byte-for-byte reproducible because Debian packages move.
 
 ## GitHub Actions
 
@@ -57,7 +57,7 @@ See the [VM checklist](SHELL-VM-TEST.md) and [VM test result template](VM-TEST-R
 ## Troubleshooting and safety
 
 - Review full live-build and GitHub Actions logs.
-- The ISO build intentionally avoids Syslinux `isohybrid`: that tool requires an ISOLINUX hybrid signature and cannot post-process this GRUB2 ISO. Do not switch back to `iso-hybrid` unless the project changes to a supported hybrid bootloader layout.
+- The hybrid ISO requires Syslinux/ISOLINUX to be the first BIOS bootloader so the `isohybrid` utility can add the hybrid MBR/GPT structures; GRUB EFI is included as the UEFI boot entry. Do not configure GRUB PC as the first loader for this Syslinux hybrid workflow.
 - Check the root directory for the ISO outputs if the expected file name is absent.
 - Make sure network and disk space are sufficient.
 - Inspect shell errors with `journalctl --user -b | grep -i -E 'gnome-shell|mac-shell'`.
