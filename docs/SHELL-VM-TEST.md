@@ -38,6 +38,8 @@ sha256sum -c MAC-OS-amd64.iso.sha256
 - [ ] Dock auto-hide reveals on pointer approach and hides away from the bottom edge
 - [ ] Dock auto-hide setting persists after logout/login
 - [ ] Favorite application IDs can be edited and saved in MAC Desktop Settings
+- [ ] Favorites can be reordered by dragging rows and by the accessible Up/Down buttons
+- [ ] Saved drag-and-drop order appears in the Dock immediately and persists after logout/login
 - [ ] Updated favorites appear in the Dock without restarting GNOME Shell
 - [ ] Restore default favorites works
 - [ ] MAC menu opens Home and Downloads in Files
