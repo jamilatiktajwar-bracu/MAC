@@ -94,6 +94,25 @@ lb config \
 
 lb build
 
+# Validate the APT sources inside the actual live root filesystem, not only
+# the source files in the repository. This catches missing .binary archives.
+LIVE_ROOTFS="$ROOT/binary/live/filesystem.squashfs"
+if [[ ! -s "$LIVE_ROOTFS" ]]; then
+  echo "Live root filesystem image is missing: $LIVE_ROOTFS" >&2
+  exit 1
+fi
+LIVE_SECURITY_SOURCE="$(unsquashfs -cat "$LIVE_ROOTFS" etc/apt/sources.list.d/mac-security.list)"
+if ! grep -Fqx "$SECURITY_SOURCE" <<<"$LIVE_SECURITY_SOURCE"; then
+  echo "The live image does not contain the expected Debian trixie-security source." >&2
+  exit 1
+fi
+LIVE_MAIN_SOURCES="$(unsquashfs -cat "$LIVE_ROOTFS" etc/apt/sources.list)"
+if ! grep -Fq 'trixie-updates' <<<"$LIVE_MAIN_SOURCES"; then
+  echo "The live image does not contain the Debian trixie-updates source." >&2
+  exit 1
+fi
+echo "Verified Debian security and updates APT sources inside live root filesystem."
+
 ISO="$ROOT/MAC-OS-amd64.iso"
 if [[ -f "$ROOT/binary.hybrid.iso" ]]; then
   cp "$ROOT/binary.hybrid.iso" "$ISO"
