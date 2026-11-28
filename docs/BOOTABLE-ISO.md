@@ -6,7 +6,7 @@ The build script explicitly selects Debian 13 (Trixie), uses Debian mirrors (not
 
 ```bash
 sudo apt update
-sudo apt install live-build debootstrap debian-archive-keyring xorriso squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools
+sudo apt install live-build debootstrap debian-archive-keyring xorriso squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools syslinux-utils
 sudo bash ./scripts/build-iso.sh
 ```
 
@@ -50,7 +50,7 @@ If the shell extension did not auto-load:
 gnome-extensions enable mac-shell@macos-project
 ```
 
-See [VM checklist](SHELL-VM-TEST.md). Build, boot, splash theme, wallpaper, and shell behavior are all still pending validation until tested on a real VM.
+See the [VM checklist](SHELL-VM-TEST.md) and [VM test result template](VM-TEST-RESULTS-TEMPLATE.md). Build, boot, splash theme, wallpaper, and shell behavior remain unverified until the corresponding tests are run and recorded.
 
 ## Troubleshooting and safety
 
