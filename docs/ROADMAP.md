@@ -8,7 +8,7 @@
 
 ## Phase 1 — Bootable foundation
 - [x] Configure Debian 13 (Trixie) live-build and CI ISO workflow
-- [x] Configure explicit trixie-security source for build and live session
+- [ ] Configure and validate the separate trixie-security source for both build and live session
 - [x] Package GNOME desktop, network manager, and core apps
 - [x] Add build checksum and source manifest
 - [x] Add source consistency checks to CI
@@ -51,7 +51,7 @@
 - [x] Favorites picker supports installed-app selection and accessible move-up/move-down ordering
 - [x] Native dock drag-reorder with accessible arrow-button fallback
 - [ ] Software center/package-manager UX
-- [ ] System monitor
+- [x] Include GNOME System Monitor in the native image
 - [ ] First-party Notes app (native, not web demo)
 
 ## Phase 4 — Installer and release
