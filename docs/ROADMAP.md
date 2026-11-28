@@ -40,7 +40,7 @@
 - [x] Native dock magnification preference and panel-menu toggle
 - [x] Native Dock auto-hide and editable favorites in MAC Desktop Settings
 - [x] Native Settings favorites picker with installed-app list and accessible move-up/move-down ordering
-- [ ] Native Dock drag-reorder
+- [x] Native Dock drag-reorder with accessible arrow-button fallback
 
 ## Phase 3 — System applications
 - [x] Include Files, Web, Terminal, Settings, and Text Editor
@@ -49,7 +49,7 @@
 - [x] Native dock magnification preference
 - [x] Native dock auto-hide and favorites controls
 - [x] Favorites picker supports installed-app selection and accessible move-up/move-down ordering
-- [ ] Native dock drag-reorder
+- [x] Native dock drag-reorder with accessible arrow-button fallback
 - [ ] Software center/package-manager UX
 - [ ] System monitor
 - [ ] First-party Notes app (native, not web demo)
