@@ -8,7 +8,7 @@ Use a Debian 13 (Trixie) host or disposable container. The selected `live-build`
 
 ```bash
 sudo apt update
-sudo apt install ca-certificates git live-build debootstrap debian-archive-keyring xorriso genisoimage squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools syslinux-utils dctrl-tools nodejs python3 libglib2.0-bin
+sudo apt install ca-certificates git live-build debootstrap debian-archive-keyring xorriso genisoimage squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools syslinux-utils isolinux dctrl-tools nodejs python3 libglib2.0-bin
 sudo bash ./scripts/build-iso.sh
 ```
 
