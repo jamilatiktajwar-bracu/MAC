@@ -12,6 +12,10 @@ if ! command -v lb >/dev/null 2>&1; then
   echo "live-build is missing. Install the Debian 13 live-build package and its GRUB/ISO build dependencies." >&2
   exit 1
 fi
+if ! lb config --help 2>&1 | grep -q -- '--bootloaders'; then
+  echo "This build requires Debian Trixie live-build with the --bootloaders option (GRUB PC + GRUB EFI)." >&2
+  exit 1
+fi
 
 # Install a build-only chroot hook so dconf defaults and Plymouth theme are
 # compiled into the image and initramfs after our include files are in place.
