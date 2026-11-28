@@ -1,6 +1,8 @@
 import Adw from 'gi://Adw';
+import Gdk from 'gi://Gdk';
 import Gio from 'gi://Gio';
 import Gtk from 'gi://Gtk';
+import GObject from 'gi://GObject';
 import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
 const DEFAULT_FAVORITES = [
@@ -49,7 +51,7 @@ export default class MacShellPreferences extends ExtensionPreferences {
 
     const favoritesGroup = new Adw.PreferencesGroup({
       title: 'Favorite applications',
-      description: 'Add, remove, and move applications to change the Dock order.',
+      description: 'Add, remove, drag to reorder, or use the arrow buttons to change Dock order.',
     });
 
     const availableApps = Gio.AppInfo.get_all()
@@ -80,8 +82,15 @@ export default class MacShellPreferences extends ExtensionPreferences {
     });
     favoritesList.add_css_class('boxed-list');
 
+    const listRows = () => {
+      const rows = [];
+      for (let row = favoritesList.get_first_child(); row; row = row.get_next_sibling())
+        rows.push(row);
+      return rows;
+    };
+
     const addFavoriteRow = desktopId => {
-      if (!desktopId || favoritesList.get_children().some(row => row._macDesktopId === desktopId))
+      if (!desktopId || listRows().some(row => row._macDesktopId === desktopId))
         return;
       const app = Gio.DesktopAppInfo.new(desktopId);
       const row = new Gtk.ListBoxRow();
@@ -121,7 +130,7 @@ export default class MacShellPreferences extends ExtensionPreferences {
       moveDownButton.add_css_class('flat');
       moveDownButton.connect('clicked', () => {
         const index = row.get_index();
-        if (index >= 0 && index < favoritesList.get_children().length - 1) {
+        if (index >= 0 && index < listRows().length - 1) {
           favoritesList.remove(row);
           favoritesList.insert(row, index + 1);
         }
@@ -133,11 +142,38 @@ export default class MacShellPreferences extends ExtensionPreferences {
       });
       removeButton.add_css_class('flat');
       removeButton.connect('clicked', () => favoritesList.remove(row));
+      const dragHandle = new Gtk.Label({ label: '⠿', valign: Gtk.Align.CENTER });
+      dragHandle.set_tooltip_text('Drag to reorder');
+      content.append(dragHandle);
       content.append(label);
       content.append(moveUpButton);
       content.append(moveDownButton);
       content.append(removeButton);
       row.set_child(content);
+
+      const dragSource = new Gtk.DragSource({ actions: Gdk.DragAction.MOVE });
+      dragSource.connect('prepare', () => Gdk.ContentProvider.new_for_value(desktopId));
+      row.add_controller(dragSource);
+
+      const dropTarget = new Gtk.DropTarget({
+        gtypes: [GObject.TYPE_STRING],
+        actions: Gdk.DragAction.MOVE,
+      });
+      dropTarget.connect('drop', (_target, draggedId, _x, y) => {
+        const rows = listRows();
+        const draggedRow = rows.find(candidate => candidate._macDesktopId === draggedId);
+        if (!draggedRow || draggedRow === row)
+          return false;
+        const sourceIndex = rows.indexOf(draggedRow);
+        const targetIndex = rows.indexOf(row);
+        let insertIndex = targetIndex + (y > row.get_height() / 2 ? 1 : 0);
+        if (sourceIndex < insertIndex)
+          insertIndex -= 1;
+        favoritesList.remove(draggedRow);
+        favoritesList.insert(draggedRow, insertIndex);
+        return true;
+      });
+      row.add_controller(dropTarget);
       favoritesList.append(row);
     };
 
@@ -168,7 +204,7 @@ export default class MacShellPreferences extends ExtensionPreferences {
     });
     saveButton.add_css_class('suggested-action');
     saveButton.connect('clicked', () => {
-      const ids = favoritesList.get_children().map(row => row._macDesktopId);
+      const ids = listRows().map(row => row._macDesktopId);
       settings.set_strv('dock-favorites', ids);
       saveButton.label = 'Saved';
     });
