@@ -15,7 +15,10 @@ if ! command -v qemu-system-x86_64 >/dev/null 2>&1; then
   exit 1
 fi
 
-ARGS=(-m 4096 -smp 2 -cdrom "$ISO" -boot d -vga virtio -nic user,model=virtio-net-pci)
+QEMU_AUDIO_BACKEND="${QEMU_AUDIO_BACKEND:-pa}"
+ARGS=(-m 4096 -smp 2 -cdrom "$ISO" -boot d -vga virtio -nic user,model=virtio-net-pci \
+  -audiodev "${QEMU_AUDIO_BACKEND},id=mac-audio" \
+  -device intel-hda -device hda-duplex,audiodev=mac-audio)
 case "$FIRMWARE" in
   bios)
     echo "Starting MAC OS live ISO with legacy BIOS firmware."
