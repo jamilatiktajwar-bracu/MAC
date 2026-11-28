@@ -8,7 +8,8 @@
 
 ## Phase 1 — Bootable foundation
 - [x] Configure Debian 13 (Trixie) live-build and CI ISO workflow
-- [ ] Configure and validate the separate trixie-security source for both build and live session
+- [x] Configure explicit trixie-security APT sources for both build and live session; verify exact suite and apt signatures in CI
+- [x] Configure explicit trixie-updates APT sources for both build and live session
 - [x] Package GNOME desktop, network manager, and core apps
 - [x] Add build checksum and source manifest
 - [x] Add source consistency checks to CI
