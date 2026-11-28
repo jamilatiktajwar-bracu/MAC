@@ -13,7 +13,7 @@ if ! command -v lb >/dev/null 2>&1; then
   exit 1
 fi
 if ! lb config --help 2>&1 | grep -q -- '--bootloaders'; then
-  echo "This build requires Debian Trixie live-build with the --bootloaders option (GRUB PC + GRUB EFI)." >&2
+  echo "This build requires Debian Trixie live-build with the --bootloaders option (Syslinux BIOS + GRUB EFI)." >&2
   exit 1
 fi
 
@@ -62,8 +62,9 @@ lb config \
   --archive-areas "main contrib non-free non-free-firmware" \
   --security false \
   --initsystem systemd \
-  --binary-image iso \
-  --bootloaders "grub-pc grub-efi" \
+  --binary-image iso-hybrid \
+  --bootloaders "syslinux grub-efi" \
+  --build-with-chroot false \
   --debian-installer false \
   --linux-flavours amd64 \
   --linux-packages none \
@@ -73,10 +74,10 @@ lb config \
 lb build
 
 ISO="$ROOT/MAC-OS-amd64.iso"
-if [[ -f "$ROOT/binary.iso" ]]; then
-  cp "$ROOT/binary.iso" "$ISO"
-elif [[ -f "$ROOT/live-image-amd64.iso" ]]; then
-  cp "$ROOT/live-image-amd64.iso" "$ISO"
+if [[ -f "$ROOT/binary.hybrid.iso" ]]; then
+  cp "$ROOT/binary.hybrid.iso" "$ISO"
+elif [[ -f "$ROOT/live-image-amd64.hybrid.iso" ]]; then
+  cp "$ROOT/live-image-amd64.hybrid.iso" "$ISO"
 else
   echo "Build finished, but expected ISO filename was not found. See build output." >&2
   find "$ROOT" -maxdepth 1 -name "*.iso" -print
@@ -94,8 +95,9 @@ MANIFEST="$ROOT/MAC-OS-build-manifest.txt"
   echo "Architecture: amd64"
   echo "Base: Debian 13 (Trixie)"
   echo "Live-build: $(lb --version | head -n 1)"
-  echo "Bootloaders: GRUB PC (BIOS) + GRUB EFI (UEFI)"
-  echo "Image format: ISO 9660 (optical-media boot; USB hybrid mode not yet provided)"
+  echo "Bootloaders: Syslinux/ISOLINUX (BIOS) + GRUB EFI (UEFI)"
+  echo "Image format: ISO hybrid (optical media + USB block-device boot)"
+  echo "Build tools: Debian Trixie host container (--build-with-chroot false; matched target distribution)"
   if command -v git >/dev/null 2>&1 && git rev-parse --short HEAD >/dev/null 2>&1; then
     echo "Source commit: $(git rev-parse HEAD)"
     echo "Source revision: $(git rev-parse --short HEAD)"
