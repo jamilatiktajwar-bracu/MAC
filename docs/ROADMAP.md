@@ -17,7 +17,7 @@
 - [x] Add GNOME System Monitor, Calculator, Disk Utility, and extension preferences
 - [x] Add MAC dconf defaults, wallpaper, and boot-theme assets
 - [x] Add generated build hook for dconf compilation and Plymouth initramfs update
-- [ ] Complete successful CI ISO build
+- [ ] Complete successful CI ISO build (latest failure: kernel stage disabled by `--linux-packages none`; corrected in current source, pending CI confirmation)
 - [ ] Verify ISO checksum and boot catalog
 - [x] Add QEMU BIOS/UEFI launch helper and VM test matrix
 - [ ] Boot in QEMU/VirtualBox (BIOS and UEFI)

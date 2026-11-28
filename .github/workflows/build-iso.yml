@@ -34,6 +34,7 @@ jobs:
           bash -n scripts/verify-iso.sh
           bash -n scripts/test-verify-iso.sh
           bash scripts/test-verify-iso.sh
+          bash scripts/test-build-iso-config.sh
           bash -n scripts/run-vm.sh
           bash scripts/validate-native.sh
 

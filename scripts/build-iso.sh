@@ -88,11 +88,22 @@ lb config \
   --build-with-chroot false \
   --debian-installer false \
   --linux-flavours amd64 \
-  --linux-packages none \
+  --linux-packages linux-image \
   --bootappend-live "boot=live components quiet splash" \
   --apt-recommends true
 
 lb build
+
+# Fail fast if the live-build binary stage did not produce its boot kernel
+# and initramfs. These files are required for both BIOS and UEFI boot paths.
+for boot_file in "$ROOT/binary/live/vmlinuz" "$ROOT/binary/live/initrd.img"; do
+  if [[ ! -s "$boot_file" ]]; then
+    echo "Required live boot file is missing: $boot_file" >&2
+    exit 1
+  fi
+done
+echo "Verified live kernel and initramfs files."
+
 
 # Validate the APT sources inside the actual live root filesystem, not only
 # the source files in the repository. This catches missing .binary archives.
