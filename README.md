@@ -24,6 +24,7 @@ The initial native target is Debian 13 (Trixie) + GNOME/Wayland. MAC is currentl
 
 - [Visual design system](docs/DESIGN-SYSTEM.md)
 - [Architecture](docs/ARCHITECTURE.md)
+- [GNOME Control Center integration strategy](docs/GNOME-CONTROL-CENTER-INTEGRATION.md)
 - [Shell features and testing](shell/README.md)
 - [QEMU BIOS/UEFI launcher](scripts/run-vm.sh)
 - [ISO build guide](docs/BOOTABLE-ISO.md)
