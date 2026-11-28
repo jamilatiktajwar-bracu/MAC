@@ -25,9 +25,8 @@ fi
 # Keep live-build's automatic security source disabled; these archives are
 # consumed by the chroot build and written into the live system via .list.binary.
 SECURITY_SOURCE="deb https://security.debian.org/debian-security trixie-security main contrib non-free non-free-firmware"
-UPDATES_SOURCE="deb https://deb.debian.org/debian trixie-updates main contrib non-free non-free-firmware"
 for suffix in chroot binary; do
-  for spec in "mac-security|$SECURITY_SOURCE" "mac-updates|$UPDATES_SOURCE"; do
+  for spec in "mac-security|$SECURITY_SOURCE"; do
     file="${spec%%|*}"
     expected="${spec#*|}"
     path="$ROOT/config/archives/$file.list.$suffix"
