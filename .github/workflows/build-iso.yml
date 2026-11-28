@@ -56,20 +56,13 @@ jobs:
 
       - name: Build ISO with Debian Trixie live-build
         run: |
-          docker run --rm --privileged \\
-            -v "$GITHUB_WORKSPACE:/workspace" \\
-            -w /workspace \\
-            debian:trixie bash -euxc '
-              apt-get update
-              DEBIAN_FRONTEND=noninteractive apt-get install -y \\
-                ca-certificates git live-build debootstrap debian-archive-keyring \\
-                xorriso genisoimage squashfs-tools grub-pc-bin grub-efi-amd64-bin \\
-                mtools nodejs python3 libglib2.0-bin
-              git config --global --add safe.directory /workspace
-              lb --version
-              bash ./scripts/build-iso.sh
-            '
-
+          docker run --rm --privileged -v "$GITHUB_WORKSPACE:/workspace" -w /workspace debian:trixie bash -euxc '
+            apt-get update
+            DEBIAN_FRONTEND=noninteractive apt-get install -y ca-certificates git live-build debootstrap debian-archive-keyring xorriso genisoimage squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools nodejs python3 libglib2.0-bin
+            git config --global --add safe.directory /workspace
+            lb --version
+            bash ./scripts/build-iso.sh
+          '
       - name: Verify generated ISO
         run: bash ./scripts/verify-iso.sh MAC-OS-amd64.iso
 
