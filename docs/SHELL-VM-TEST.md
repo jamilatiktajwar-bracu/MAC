@@ -80,12 +80,13 @@ The live image includes libadwaita runtime packages for the MAC Desktop Settings
 
 ## QEMU firmware tests
 
-Install QEMU and (for UEFI) OVMF:
+Install QEMU and (for UEFI) OVMF. The launcher adds an Intel HDA sound controller with duplex audio (speaker + microphone) and uses the PulseAudio-compatible backend by default. On a host that uses ALSA instead, set `QEMU_AUDIO_BACKEND=alsa`:
 
 ```bash
 sudo apt install qemu-system-x86 ovmf
 bash scripts/run-vm.sh MAC-OS-amd64.iso bios
 bash scripts/run-vm.sh MAC-OS-amd64.iso uefi
+QEMU_AUDIO_BACKEND=alsa bash scripts/run-vm.sh MAC-OS-amd64.iso bios  # optional ALSA backend
 ```
 
 For each firmware mode, confirm the VM reaches the live GNOME login/desktop, then complete the checklist above. The launcher script uses 4 GB RAM, 2 virtual CPUs, a virtio display/network adapter, and boots from the ISO. Close the QEMU window to stop the VM.
