@@ -101,16 +101,29 @@ if [[ ! -s "$LIVE_ROOTFS" ]]; then
   echo "Live root filesystem image is missing: $LIVE_ROOTFS" >&2
   exit 1
 fi
-LIVE_SECURITY_SOURCE="$(unsquashfs -cat "$LIVE_ROOTFS" etc/apt/sources.list.d/mac-security.list)"
-if ! grep -Fqx "$SECURITY_SOURCE" <<<"$LIVE_SECURITY_SOURCE"; then
+APT_SOURCE_TMP="$(mktemp -d)"
+if ! unsquashfs -f -d "$APT_SOURCE_TMP" "$LIVE_ROOTFS" etc/apt >/dev/null; then
+  rm -rf "$APT_SOURCE_TMP"
+  echo "Could not inspect APT source files inside the live root filesystem." >&2
+  exit 1
+fi
+LIVE_APT_SOURCE_DIR="$APT_SOURCE_TMP/etc/apt"
+if [[ ! -d "$LIVE_APT_SOURCE_DIR" ]]; then
+  rm -rf "$APT_SOURCE_TMP"
+  echo "APT configuration directory is missing from the live image." >&2
+  exit 1
+fi
+if ! grep -R -Fqx "$SECURITY_SOURCE" "$LIVE_APT_SOURCE_DIR"; then
+  rm -rf "$APT_SOURCE_TMP"
   echo "The live image does not contain the expected Debian trixie-security source." >&2
   exit 1
 fi
-LIVE_MAIN_SOURCES="$(unsquashfs -cat "$LIVE_ROOTFS" etc/apt/sources.list)"
-if ! grep -Fq 'trixie-updates' <<<"$LIVE_MAIN_SOURCES"; then
+if ! grep -R -Fq 'trixie-updates' "$LIVE_APT_SOURCE_DIR"; then
+  rm -rf "$APT_SOURCE_TMP"
   echo "The live image does not contain the Debian trixie-updates source." >&2
   exit 1
 fi
+rm -rf "$APT_SOURCE_TMP"
 echo "Verified Debian security and updates APT sources inside live root filesystem."
 
 ISO="$ROOT/MAC-OS-amd64.iso"
