@@ -1,6 +1,6 @@
 # Bootable ISO build (experimental)
 
-The build script runs with Debian 13 (Trixie) `live-build` from the matching Debian environment, uses Debian mirrors (not the Ubuntu host's default apt mirror), and adds the current `trixie-security` repository separately. This avoids live-build's obsolete `stable/updates` security-suite naming. This produces a Debian 13 (Trixie) live image with GNOME, MAC desktop defaults, a custom wallpaper, a minimal Plymouth theme, and the experimental MAC GNOME Shell extension. It is a Linux-based prototype, not a new kernel or independent distribution.
+The build script runs with Debian 13 (Trixie) `live-build` from the matching Debian environment and uses Debian Trixie mirrors (not the Ubuntu host's default apt mirror). The current configuration sets `--security false`, so it does not add a separate `trixie-security` suite; enabling and validating that suite is still a packaging task. Rebuild from current Trixie package metadata before testing or distributing an image. This produces a Debian 13 (Trixie) live image with GNOME, MAC desktop defaults, a custom wallpaper, a minimal Plymouth theme, and the experimental MAC GNOME Shell extension. It is a Linux-based prototype, not a new kernel or independent distribution.
 
 ## Local build (Debian 13 Trixie)
 
@@ -8,7 +8,7 @@ Use a Debian 13 (Trixie) host or disposable container. The selected `live-build`
 
 ```bash
 sudo apt update
-sudo apt install live-build debootstrap debian-archive-keyring xorriso genisoimage squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools syslinux-utils
+sudo apt install ca-certificates git live-build debootstrap debian-archive-keyring xorriso genisoimage squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools syslinux-utils dctrl-tools nodejs python3 libglib2.0-bin
 sudo bash ./scripts/build-iso.sh
 ```
 
