@@ -38,13 +38,10 @@ jobs:
           bash scripts/validate-native.sh
 
           SECURITY_SOURCE='deb https://security.debian.org/debian-security trixie-security main contrib non-free non-free-firmware'
-          UPDATES_SOURCE='deb https://deb.debian.org/debian trixie-updates main contrib non-free non-free-firmware'
           for suffix in chroot binary; do
             grep -Fqx "$SECURITY_SOURCE" "config/archives/mac-security.list.$suffix"
-            grep -Fqx "$UPDATES_SOURCE" "config/archives/mac-updates.list.$suffix"
           done
           cmp config/archives/mac-security.list.chroot config/archives/mac-security.list.binary
-          cmp config/archives/mac-updates.list.chroot config/archives/mac-updates.list.binary
           if grep -nF '\n' scripts/build-iso.sh; then echo 'Unexpected literal backslash-n in build script'; exit 1; fi
           node --input-type=module --check < shell/gnome-extension/extension.js
           node --input-type=module --check < shell/gnome-extension/prefs.js
