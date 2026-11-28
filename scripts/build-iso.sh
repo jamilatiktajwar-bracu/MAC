@@ -17,6 +17,23 @@ if ! lb config --help 2>&1 | grep -q -- '--bootloaders'; then
   exit 1
 fi
 
+# Pin the official Debian Trixie security and stable-updates suites explicitly.
+# Keep live-build's automatic security source disabled; these archives are
+# consumed by the chroot build and written into the live system via .list.binary.
+SECURITY_SOURCE="deb https://security.debian.org/debian-security trixie-security main contrib non-free non-free-firmware"
+UPDATES_SOURCE="deb https://deb.debian.org/debian trixie-updates main contrib non-free non-free-firmware"
+for suffix in chroot binary; do
+  for spec in "mac-security|$SECURITY_SOURCE" "mac-updates|$UPDATES_SOURCE"; do
+    file="${spec%%|*}"
+    expected="${spec#*|}"
+    path="$ROOT/config/archives/$file.list.$suffix"
+    if [[ ! -f "$path" ]] || ! grep -Fqx "$expected" "$path"; then
+      echo "Missing or incorrect Debian archive configuration: $path" >&2
+      exit 1
+    fi
+  done
+done
+
 # Install a build-only chroot hook so dconf defaults and Plymouth theme are
 # compiled into the image and initramfs after our include files are in place.
 HOOK_DIR="$ROOT/config/hooks/live"
@@ -61,6 +78,7 @@ lb config \
   --architecture amd64 \
   --archive-areas "main contrib non-free non-free-firmware" \
   --security false \
+  --apt-secure true \
   --initsystem systemd \
   --binary-image iso-hybrid \
   --bootloaders "syslinux grub-efi" \
