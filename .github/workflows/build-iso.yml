@@ -18,7 +18,7 @@ permissions:
 
 concurrency:
   group: mac-iso-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -58,7 +58,7 @@ jobs:
         run: |
           docker run --rm --privileged -v "$GITHUB_WORKSPACE:/workspace" -w /workspace debian:trixie bash -euxc '
             apt-get update
-            DEBIAN_FRONTEND=noninteractive apt-get install -y ca-certificates git live-build debootstrap debian-archive-keyring xorriso genisoimage squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools syslinux-utils nodejs python3 libglib2.0-bin
+            DEBIAN_FRONTEND=noninteractive apt-get install -y ca-certificates git live-build debootstrap debian-archive-keyring xorriso genisoimage squashfs-tools grub-pc-bin grub-efi-amd64-bin mtools syslinux-utils dctrl-tools nodejs python3 libglib2.0-bin
             git config --global --add safe.directory /workspace
             lb --version
             bash ./scripts/build-iso.sh
